@@ -1,0 +1,135 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    
+}
+h5{
+  text-align: center;
+}
+
+h4{
+  display: inline-block;
+  color: rgb(255, 255, 255);
+  
+}
+h1{
+  text-align: center;
+}
+.filtro{
+  display: inline-block;
+  position: fixed;
+}
+.btn-primary{
+  align-items: center;
+  text-align: center;
+}
+span{
+  text-align: center;
+}
+
+
+.col{
+  padding-bottom: 50px;
+}
+#btnEntrar{
+  text-align: center;
+  
+  border-radius: 2pc;
+}
+#btnCambioARegistro{
+   text-align: center;
+  
+  border-radius: 2pc;
+}
+
+.abs-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+}
+#btnInicioSecion{
+  margin-right:  5px;
+}
+
+
+.col_carrusel{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+}
+.productos{
+    width: auto;
+    height: 800px;
+    background-color: brown;
+    
+}
+body {
+    margin: 0;
+    margin-bottom: 40px;
+    background-color: rgb(255, 255, 255);
+  }
+ 
+
+  .colorBlack{
+    background-color: #191919;
+    background-image: -moz-linear-gradient(top, #191919, #000000);
+    background-image: -o-linear-gradient(top, #191919, #000000);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #191919), color-stop(1, #000000));
+    background-image: -webkit-linear-gradient(#191919, #000000);
+    background-image: linear-gradient(top, #191919, #000000);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#191919', endColorStr='#000000');
+    border-top: 1px solid rgba(50, 50, 50, 0.3);
+    
+  }
+  footer {
+    min-height: 70px;
+    background-color: #191919;
+    background-image: -moz-linear-gradient(top, #191919, #000000);
+    background-image: -o-linear-gradient(top, #191919, #000000);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #191919), color-stop(1, #000000));
+    background-image: -webkit-linear-gradient(#191919, #000000);
+    background-image: linear-gradient(top, #191919, #000000);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#191919', endColorStr='#000000');
+    border-top: 1px solid rgba(50, 50, 50, 0.3);
+    width: 100%;
+    /*position: relative;*/
+    clear: both;
+    /*margin-top: 0px;
+    padding-top: 0px;*/
+    overflow: visible;
+  }
+
+  
+  .footer {
+    border-top: 1px solid #222;
+    padding-bottom: auto;
+    margin-block-start: 7cm;
+    margin-bottom: 100px;
+    
+    padding-top: 1.7cm;
+    position: absolute;
+   
+  }
+  
+ 
+.navbar-expand-lg img{
+    height: 30px;
+}
+
+p{
+    display: inline-block;
+}
+
+#menuBuscar a{
+ text-decoration: none;
+}
+
+
+.publicidad_tienda{
+  display: inline-block;
+}
+.fromResgistrar{
+  display: none;
+}

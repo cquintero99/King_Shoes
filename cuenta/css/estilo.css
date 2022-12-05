@@ -1,0 +1,23 @@
+.scrollable0panel{
+    max-height: 300px;
+    overflow: auto;
+}
+#productos{
+    height: 50vh;
+    overflow-y: scroll;
+
+}
+h4{
+    color: rgb(255, 255, 255);
+}
+#total{
+    font-weight: bold;
+    font-size: 15px;
+    height: 500px;
+    width: 800px;
+    background-color: aqua;
+
+}
+ul{
+    text-align: center;
+}

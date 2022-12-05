@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="container text-center">
+    <div class="row justify-content-between">
+      <div class="col-4 p-2">
+        <button class="btn btn-outline-primary btn-lg" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+          </svg> FILTRO
+        </button>
+      </div>
+
+
+
+
+
+      <div class="col-4 p-2">
+        <p class=" fw-bold">  MARCAS NACIONALES <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Colombia.svg/200px-Flag_of_Colombia.svg.png"
+          alt="" width="50px" height="40px"></p>
+      </div>
+    </div>
+   
+    <div class="flitro abs-center">
+
+      <!--Texto & img Bandera-->
+      
+    </div>
+
+    <!--Canvas Filtro-->
+    <div class="offcanvas offcanvas-start " data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+      aria-labelledby="offcanvasWithBothOptionsLabel">
+      <div class="offcanvas-header">
+        <!--Titulo Canvas Filtro-->
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+          <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+          </svg>
+          Filtro Y Ordenar
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <!--texto-->
+        <p>Puedes Aplicar los siguientes filtros</p>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <!--Filtro 1-->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" 
+                onclick="cargarTallasFiltro()">
+                TALLA
+              </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+              data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <select class="form-select" id="tallasProducto" >
+
+                  
+              </select>
+                <div class="d-grid gap-2 p-5 mx-auto">
+                  <button type="button" class="btn btn-outline-secondary">APLICAR FILTRO</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Filtro 2-->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                COLOR
+              </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+              data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Seleciona un color</option>
+                  <option value="1">Negro</option>
+                  <option value="2">Blanco</option>
+                  <option value="3">Azul</option>
+                  <option value="4">Rojo</option>
+                  <option value="5">Verde</option>
+                  <option value="6">Gris</option>
+                </select>
+                
+                <div class="d-grid gap-2 p-5  mx-auto">
+                  <button type="button" class="btn btn-outline-secondary">APLICAR FILTRO</button>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+          <!--Filtro 3-->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                PRECIO
+              </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+              data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">
+                <label for="customRange1" class="form-label">20.000 ≈ 999.999</label>
+                <input type="range" class="form-range" id="customRange1">
+                <p></p>
+                <div class="d-grid gap-2  mx-auto">
+                  <button type="button" class="btn btn-outline-secondary">APLICAR FILTRO</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Filtro 4-->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                onclick="cargarMarcasFiltroSelect()" data-bs-target="#flush-collapseFour" aria-expanded="false"
+                aria-controls="flush-collapseFour">
+                MARCAS
+              </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
+              data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body" id="marcasFiltro">
+                <select class="form-select" aria-label="Default select example" id="marcaFiltro">
+
+                </select>
+                <div class="d-grid gap-2 p-5 mx-auto">
+                  <button type="button" class="btn btn-outline-secondary">APLICAR FILTRO</button>
+                </div>
+              </div>
+            </div>
+           
+              
+              
+          
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container-sm">
+      
+      <div class="row  " id="categoriaProductos">
+
+
+
+
+
+      </div>
+
+    </div>
+
+    <script src="../script/categoria.js"></script>
+
+</body>
+
+</html>

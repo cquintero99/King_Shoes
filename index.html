@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="icon" type="https://cdn.sstatic.net/Sites/es/img/apple-touch-icon.png?v=7739871010e6
+" href="img/icons8-corona-96.png">
+  <title>KingShoes</title>
+</head>
+
+<body>
+  <!--Menu-->
+
+
+  <div class="a" id="menu">
+    <div>
+      <FONT FACE="Impact">
+        <MARQUEE BEHAVIOR=ALTERNATE SCROLLAMOUNT=7 BGCOLOR="#FFFFFF"> 
+          <a class="text bg-light " href="https://github.com/cquintero99" target="_blank" >𝘽𝙞𝙚𝙣𝙫𝙚𝙣𝙞𝙙𝙤𝙨  __𝙆𝙞𝙣𝙜  𝙎𝙝𝙤𝙚𝙨 __ 𝘾𝙤𝙡𝙤𝙢𝙗𝙞𝙖  __𝙀𝙘𝙤𝙢𝙢𝙚𝙧𝙘𝙚 __ 𝙬𝙚𝙗𝙨𝙞𝙩𝙚  </a>
+            </MARQUEE>
+
+      </FONT>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg  text-center text-lg-start bg-dark text-muted colorBlack " id="nav">
+
+      <div class="container text-center ">
+        <!--Logo -->
+        <a class="navbar-brand" href="index.html">
+          <img src="img/icons8-corona-96.png" alt="Logo" width="43" height="46" class="d-inline-block align-text-top"
+            id="logo_inicio">
+          <h4> King Shoes</h4>
+        </a>
+        <!--Boton mediaQuery-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--Botones-->
+
+        <div class="collapse navbar-collapse text-bg-dark colorBlack text-center" id="navbarSupportedContent">
+
+          <ul class="nav justify-content-center ">
+            <li class="nav-item">
+              <a class="nav-link active " type="button" aria-current="page" href="#" id="hombre"
+                onclick="mostrarCategoria('hombre')">HOMBRE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#" id="mujer"
+                onclick="mostrarCategoria('mujer')">MUJER</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                NIÑOS
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark colorBlack" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="#" id="niño" onclick="mostrarCategoria('niño')">NIÑO</a></li>
+                <li><a class="dropdown-item" href="#" id="niña" onclick="mostrarCategoria('niña')">NIÑA</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Ver todo</a></li>
+              </ul>
+            </li>
+
+
+          </ul>
+          <!--Boton buscador-->
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Ej: puma" aria-label="Search">
+
+            <a class="nav " href="#" role="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+              </svg>
+            </a>
+
+          </form>
+
+          <!--Boton Cuenta-->
+          <ul class="nav justify-content-center  ">
+            <li class="nav-item dropdown">
+
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" fill="currentColor"
+                  class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                  <path fill-rule="evenodd"
+                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                </svg>
+              </a>
+
+              <ul class="dropdown-menu dropdown-menu-dark colorBlack" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li>
+                  <button type="button" class="btn  btn-default" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">
+                    <a class="dropdown-item" href="#">Mi Cuenta</a>
+                  </button>
+                </li>
+
+                <li>
+                  <button type="button " class="btn"><a class="dropdown-item" href="#" id="cuentaTienda">Tienda
+                    </a>
+                  </button>
+
+                </li>
+                <li>
+                  <button type="button " class="btn"><a class="dropdown-item" href="#" id="cuentaAdmin">Admin
+                    </a>
+                  </button>
+
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <button type="button " class="btn"><a class="dropdown-item" href="#">Soporte </a></button>
+
+                </li>
+
+              </ul>
+            </li>
+            <!--Boton Carrito-->
+
+            <li class="nav-item">
+              <a class="nav-link " href="#" role="button" id="btnCarrito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" fill="currentColor" class="bi bi-cart4"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                </svg>
+              </a>
+
+
+
+            </li>
+
+
+          </ul>
+
+
+
+
+
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- Modal -->
+
+  <div class="modal fade  " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+      <div class="modal-content text-bg-dark bg-dark colorBlack">
+        <div class="modal-header text-center ">
+
+
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            style="background-color: white"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor"
+              class="bi bi-person-circle" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>
+
+
+          </div>
+          <p><br></p>
+
+          <form id="fromInicio">
+
+            <div class="row mb-3">
+              <label for="inputEmailInicio" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmailInicio" required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="inputPasswordInicio" class="col-sm-2 col-form-label">Contraseña</label>
+              <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPasswordInicio" required>
+              </div>
+            </div>
+            <div class="abs-center">
+              <a type="button" class="btn btn-primary" id="btnInicioSecion">Iniciar Sesion</a>
+
+              <a type="button" class="btn btn-primary" id="rUsuario" data-bs-dismiss="modal">Registrarme</a>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <ul id="ulCuentaYContraseñaDiv">
+            <li><a href="#">¿Olvidaste tu contraseña?</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Contenedor  Body-->
+  <div class="container" id="contenedor">
+    
+    <!--Division del encabezado -->
+    <div>
+      <div class="flitro abs-center">
+
+        <!--Texto & img Bandera-->
+        <p> NUESTRO PROPOSITO ES DAR A CONOCER EL TALENTO DE LOS ZAPATOS DE NUESTRO PAIS <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Colombia.svg/200px-Flag_of_Colombia.svg.png"
+            alt="" width="50px" height="40px"></p>
+      </div>
+
+      <!--Contendor Columns "Equal-width " Bootstrap "/2 3/3" -->
+      <div class="container-sm">
+        <!--col-1/2-->
+        <div class="row ">
+
+
+          <div class="col">
+            <div class="abs-center">
+              <div class="card colorBlack text-bg-dark" style="width: 25rem;">
+                <img src="http://ekladata.com/chYAkWyXcQV5eOVWg5h4EFcS4yw.jpg " width="400" height="300"
+                  class="card-img-top">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Comprar</h5>
+                  <p class="card-text">Puedes Comprar Todo tipo de zapatos nacionales <br>Diferentes medios de pago
+                    <br>cotacto KingShoesColombia@gmail.com
+                  </p>
+                  <div class="col_carrusel">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalI">
+                      Mas Informacion
+                    </button>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Button trigger modal -->
+          
+
+          <!-- Modal -->
+          <div class="modal " id="exampleModalI" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog ">
+              <div class="modal-content text-center text-bg-light" >
+                <div class="modal-header text-center">
+                  
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <h1 >KING SHOES</h1>
+                  <h5>Es un ecommerce website de ventas de zapatos </h5>
+                  <h5>Contamos con las siguientes categorias</h5>
+                  <br>
+                  <div class="container text-center">
+                    <div class="row text-center border border-dark">
+                      <div class="col text-bg-light  text-center"><h3><a href="#" data-bs-dismiss="modal" type="button" onclick="mostrarCategoria('hombre')">HOMBRE</a></h3></div>
+                      
+                    </div>
+                    <div class="row  text-center border border-dark">
+                      <div class="col text-bg-light text-center"><h3><a href="#" data-bs-dismiss="modal" type="button" onclick="mostrarCategoria('mujer')">MUJER</a></h3></div>
+                      
+                    </div>
+                    <div class="row  text-center border border-dark">
+                      <div class="col text-bg-light text-center"><h3><a href="#" data-bs-dismiss="modal" type="button" onclick="mostrarCategoria('niño')">NIÑO</a></h3></div>
+                      
+                    </div>
+                    <div class="row  text-center border border-dark">
+                      <div class="col text-bg-light text-center"><h3><a href="#" data-bs-dismiss="modal" type="button" onclick="mostrarCategoria('niña')">NIÑA</a></h3></div>
+                      
+                    </div>
+                    
+                      
+                      
+                  </div>
+                  
+                  
+                  
+                  
+                  
+                </div>
+                <div class="modal-footer">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--col 2/2-->
+          <div class="col">
+            <div class="abs-center">
+              <div class="card colorBlack text-bg-dark" style="width: 25rem;">
+                <img src="https://www.themarkethink.com/wp-content/uploads/2020/08/mi-tienda-online-belcorp.jpg"
+                  width="400" height="300" class="card-img-top">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Vender</h5>
+                  <p class="card-text">En king Shoes puedes ofrecer tus productos de manera online muy facil y rapida
+                    <br>Solo tienes que resgistrarte.
+                  </p>
+                  <div class="col_carrusel">
+                    <a href="#" type="button" class="btn btn-primary" id="cuentaTienda2">Mas Informacion</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <img src="/img/tiendaOnline.jpg" class="img-fluid" alt="">
+
+        <div class="text-bg-dark colorBlack p-3 text-center">NUESTRAS TIENDAS</div>
+
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+              <img src="https://www.plazalaserrezuela.com/wp-content/uploads/2020/10/mario-hernandez-logo.png"
+                class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Mario Hernandez</h5>
+                <p>Conoce toda la elegancia y comodidad que te otorgan los zapatos para hombre de Mario Hernàndez. Cada
+                  diseños está confeccionado con materiales de alta calidad y desempeño.</p>
+              </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+              <img src="https://unicentrodearmenia.com/wp-content/uploads/2018/06/bosi-logo.png" class="d-block w-100"
+                alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Bosi</h5>
+                <p>Descubre las últimas tendencias en calzado, chaquetas de cuero, maletines y mucho más.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/LOGO_MARCA_V%C3%89LEZ.png"
+                class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Velez</h5>
+                <p>En Vélez somos amantes del cuero, encuentra en la Tienda Online calzado, bolsos, maletas, billeteras,
+                  chaquetas de cuero, tenis</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+          </div>
+
+
+        </div>
+
+
+        <img src="/img/tipoZaptos.jpg" class="img-fluid border-dark "alt="">
+        <div class=" text-bg-dark colorBlack p-3 text-center">CATEGORIAS DISPONIBLES
+      </div>
+
+      <!--col 3/3-->
+      <div class="row">
+        <!--col 1/3-->
+        <div class="col">
+
+          <h1><a href="#" onclick="mostrarCategoria('hombre')">Hombre</a></h1>
+          <!--carrusel-->
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://static.dafiti.com.co/p/adidas-performance-0231-3557291-1-zoom.jpg"
+                  class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://static.dafiti.com.co/p/hugo-boss-0062-1591102-1-catalog-new.jpg" class="d-block w-100"
+                  alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://static.dafiti.com.co/p/lacoste-0357-4250202-1-catalog-new.jpg" class="d-block w-100"
+                  alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+
+
+          </div>
+        </div>
+        <!--col "2/3"-->
+        <div class="col">
+          <h1><a href="#" onclick="mostrarCategoria('mujer')">Mujer</a></h1>
+          <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="true">
+
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://static.dafiti.com.co/p/reebok-8564-8748771-1-catalog-new.jpg" class="d-block w-100"
+                  alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://static.dafiti.com.co/p/tellenzi-3625-6892091-1-catalog-new.jpg" class="d-block w-100"
+                  alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://static.dafiti.com.co/p/nike-6120-6537102-1-catalog-new.jpg" class="d-block w-100"
+                  alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators2"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+
+
+          </div>
+
+
+        </div>
+        <!--col 3/3-->
+        <div class="col">
+          <h1><a href="#" onclick="mostrarCategoria('niño')">Niño</a></h1>
+          <div id="carouselExampleIndicators3" class="carousel slide" data-bs-ride="true">
+
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://static.dafiti.com.co/p/tellenzi-9072-1025481-1-catalog-new.jpg" class="d-block w-100"
+                  alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://static.dafiti.com.co/p/ipanema-6897-7542602-1-catalog-new.jpg" class="d-block w-100"
+                  alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="https://static.dafiti.com.co/p/los-gomosos-5878-7132181-1-catalog-new.jpg"
+                  class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators3"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators3"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+
+
+
+          </div>
+
+        </div>
+      </div>
+      <img src="https://www.isidroperez.com/wp-content/uploads/2017/12/descuentos1.jpg.webp" class="img-fluid"
+        alt="...">
+
+      <div class="text-bg-dark colorBlack p-3 text-center">PROMOCIONES</div>
+       <marquee behavior="scroll" direction="left"><img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0727.gif" width="194" height="188" alt="Swimming fish" /></marquee>
+      
+    </div>
+    <br>
+
+
+
+
+
+
+
+
+    <!--Boton de Siguiente pagina-->
+    <br>
+    <div class="col_carrusel p-3">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+
+
+  </div>
+
+  </div>
+
+
+  <footer class="text-center text-lg-start bg-light text-muted footer">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      <!-- Left -->
+      <div class="me-5 d-none d-lg-block">
+        <span>Para mas informacion contactenos :
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-plus"
+            viewBox="0 0 16 16">
+            <path
+              d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
+            <path
+              d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z" />
+          </svg> infokscolombia@gmail.com</span>
+      </div>
+      <!-- Left -->
+
+      <!-- Right -->
+      <div>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>King Shoes Colombia
+            </h6>
+            <p>La página permite crear una tienda online </p>
+
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              PRODUCTOS
+            </h6>
+            <p>
+              <a href="#" class="text-reset" onclick="mostrarCategoria('hombre')">Zapatos para Hombre</a>
+            </p>
+            <p>
+              <a href="#" class="text-reset" onclick="mostrarCategoria('mujer')">Zapatos para Mujer</a>
+            </p>
+            <p>
+              <a href="#" class="text-reset" onclick="mostrarCategoria('niño')">Zapatos para Niño</a>
+            </p>
+            <p>
+              <a href="#" class="text-reset" onclick="mostrarCategoria('niña')">Zapatos para Niña</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Proyecto
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Pricing</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Settings</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Orders</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Help</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
+            <p><i class="fas fa-home me-3"></i> Colombia </p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              inkscolombia@gmail.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 300 8961 125</p>
+            <p><i class="fas fa-print me-3"></i> + 301 1452 521</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2022 Copyright:
+      <a class="text-reset fw-bold" href="https://github.com/cquintero99" target="_blank">CQUINTERO99</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
+  <script src="usuario.js"></script>
+  <script src="tienda.js"></script>
+  <script src="script/categoria.js"></script>
+
+
+
+</body>
+
+</html>
