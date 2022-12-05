@@ -119,13 +119,10 @@ function registrarFotoProducto() {
             let nombre=document.getElementById('inputNombreP').value;
             file.name=nombre+".jpg";
            
-            multer.diskStorage({
-                filename:(req,file,cb)=>{
-                    cb(null,file.name)
-                }
-            });
-
+            if(localStorage.getItem("idProducto")!=null){
+            let idProducto=localStorage.getItem("idProducto")
             
+            formData.append('name',idProducto)
             formData.append( 'file',file);
             formData.append('ubicacion',"archivos")
             
@@ -144,13 +141,16 @@ function registrarFotoProducto() {
                   .then(response => Promise.all([response.status, response.json()]))
                   .then(function([status, myJson]) {
                       if (status == 200) {
+
                           console.log("succeed!");
                       } else {
                           console.log("failed!");
                       }
                   })
                   .catch(error => console.log(error.message));
-        
+                }else{
+                    alert("Primero debes registrar el Producto")
+                }
 
 }
 
@@ -205,7 +205,15 @@ function registrarProductos() {
  
  
              }).then(response=>response.json())
-                 .then(producto=>console.log(producto))
+                 .then(producto=>{
+                    alert("Ya puedes registrar la imagen del producto")
+                    console.log(producto)
+                    let idProducto=producto.id;
+                    localStorage.setItem("idProducto",idProducto)
+                    console.log(producto.id)
+                    document.getElementById('guardarImagen').style="display:visible";
+                    
+                 })
                  
                 
 

@@ -37,7 +37,11 @@ function registrarUsuarioLogin() {
     }
 
   }).then(res => res.json())
-    .then(user => console.log(user))
+    .then(user => {
+      localStorage.setItem("cedulaUser" ,cedula)
+      registrarCarro()
+    })
+
 
   console.log("USUARIO REGISTRADO= " + JSON.stringify(newUser))
 
@@ -211,14 +215,14 @@ function  eliminarProductoCarrito(id){
 }
 
 function registrarCarro() {
-  let cedula = prompt("digite su cedula")
+  let cedula = localStorage.getItem("cedulaUser")
 
   fetch('http://localhost:8080/usuarios/' + cedula + '/cedula')
     .then(response => response.json())
     .then(u => rcarrito(u))
     .catch(error => console.log(error))
-  let total = 0;
-  let cantidad = 0;
+    let total = 0;
+    let cantidad = 0;
 
 
   const rcarrito = (u) => {
