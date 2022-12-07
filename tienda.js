@@ -343,7 +343,7 @@ function listarProductos() {
                 <a class="dropdown-item" href="#" >Cambiar Estado</a>
                 
                 </li>
-                 <li><a class="dropdown-item" href="#">Eliminar </a></li>
+                 <li><a class="dropdown-item" href="#" onclick="eliminarProducto(${data[i].id})">Eliminar </a></li>
                 </ul>
                 </div>
             </td>
@@ -353,6 +353,13 @@ function listarProductos() {
         document.getElementById('dataProductos').innerHTML = body
     }
 
+}
+
+function eliminarProducto(id){
+    fetch('http://localhost:8080/productos/'+id,{
+        method:'DELETE'
+    }).then(response=>response.json())
+        .then(user=>console.log(user))
 }
 
 

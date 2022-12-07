@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/estilo.css">
   <link rel="icon" type="https://cdn.sstatic.net/Sites/es/img/apple-touch-icon.png?v=7739871010e6
 " href="img/icons8-corona-96.png">
-  <title>KingShoes</title>
+  <title >KingShoes</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
     <div>
       <FONT FACE="Impact">
         <MARQUEE BEHAVIOR=ALTERNATE SCROLLAMOUNT=7 BGCOLOR="#FFFFFF"> 
-          <a class="text bg-light " href="https://github.com/cquintero99" target="_blank" >𝘽𝙞𝙚𝙣𝙫𝙚𝙣𝙞𝙙𝙤𝙨  __𝙆𝙞𝙣𝙜  𝙎𝙝𝙤𝙚𝙨 __ 𝘾𝙤𝙡𝙤𝙢𝙗𝙞𝙖  __𝙀𝙘𝙤𝙢𝙢𝙚𝙧𝙘𝙚 __ 𝙬𝙚𝙗𝙨𝙞𝙩𝙚  </a>
+          <a class="text bg-light " href="https://github.com/cquintero99" target="_blank" >𝘽𝙞𝙚𝙣𝙫𝙚𝙣𝙞𝙙𝙤𝙨 __ 𝙆𝙞𝙣𝙜 __ 𝙎𝙝𝙤𝙚𝙨 __ 𝘾𝙤𝙡𝙤𝙢𝙗𝙞𝙖 __ 𝙀𝙘𝙤𝙢𝙢𝙚𝙧𝙘𝙚 __ 𝙬𝙚𝙗𝙨𝙞𝙩𝙚  </a>
             </MARQUEE>
 
       </FONT>
@@ -37,7 +37,7 @@
         <a class="navbar-brand" href="index.html">
           <img src="img/icons8-corona-96.png" alt="Logo" width="43" height="46" class="d-inline-block align-text-top"
             id="logo_inicio">
-          <h4> King Shoes</h4>
+          <h4 class="fw-semibold">King Shoes</h4>
         </a>
         <!--Boton mediaQuery-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -328,11 +328,11 @@
 
 
 
-        <img src="/img/tiendaOnline.jpg" class="img-fluid" alt="">
+      <div class="row">
 
-        <div class="text-bg-dark colorBlack p-3 text-center">NUESTRAS TIENDAS</div>
+        <div class="text-bg-dark colorBlack p-3 text-center "><h1>NUESTRAS TIENDAS</h1></div>
 
-        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div id="carouselExampleDark" class="carousel carousel-dark slide border border-dark p-3" data-bs-ride="carousel">
           <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
               aria-current="true" aria-label="Slide 1"></button>
@@ -395,16 +395,21 @@
         </div>
 
 
-        <img src="/img/tipoZaptos.jpg" class="img-fluid border-dark "alt="">
-        <div class=" text-bg-dark colorBlack p-3 text-center">CATEGORIAS DISPONIBLES
+       
+        <br>
       </div>
-
       <!--col 3/3-->
-      <div class="row">
+      <div class="row ">
         <!--col 1/3-->
+        <div class=" text-bg-dark colorBlack p-3 text-center"><h1>CATEGORIAS DISPONIBLES</h1>
+        </div>
+        <div class="container  border border-dark">
         <div class="col">
-
-          <h1><a href="#" onclick="mostrarCategoria('hombre')">Hombre</a></h1>
+         
+          <div class="p-3">
+            <h1><a href="#" onclick="mostrarCategoria('hombre')">HOMBRE</a></h1>
+          </div>
+          
           <!--carrusel-->
           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
 
@@ -438,7 +443,9 @@
         </div>
         <!--col "2/3"-->
         <div class="col">
-          <h1><a href="#" onclick="mostrarCategoria('mujer')">Mujer</a></h1>
+          <div class="p-3">
+          <h1><a href="#" onclick="mostrarCategoria('mujer')">MUJER</a></h1>
+          </div>
           <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="true">
 
             <div class="carousel-inner">
@@ -473,7 +480,9 @@
         </div>
         <!--col 3/3-->
         <div class="col">
-          <h1><a href="#" onclick="mostrarCategoria('niño')">Niño</a></h1>
+          <div class="p-3">
+          <h1><a href="#" onclick="mostrarCategoria('niño')">NIÑO</a></h1>
+          </div>
           <div id="carouselExampleIndicators3" class="carousel slide" data-bs-ride="true">
 
             <div class="carousel-inner">
@@ -506,13 +515,19 @@
           </div>
 
         </div>
+        </div>
+        
       </div>
-      <img src="https://www.isidroperez.com/wp-content/uploads/2017/12/descuentos1.jpg.webp" class="img-fluid"
-        alt="...">
-
-      <div class="text-bg-dark colorBlack p-3 text-center">PROMOCIONES</div>
-       <marquee behavior="scroll" direction="left"><img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0727.gif" width="194" height="188" alt="Swimming fish" /></marquee>
+      <br>
       
+      <div class="row">
+      <div class="text-bg-dark colorBlack p-3 text-center"><h1>PROMOCIONES</h1></div>
+      <div class="border border-dark">
+       <marquee behavior="scroll" direction="left"><img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0727.gif" width="194" height="188" alt="Swimming fish" /></marquee>
+       <img src="https://www.isidroperez.com/wp-content/uploads/2017/12/descuentos1.jpg.webp" class="img-fluid"
+       alt="...">
+      </div>
+      </div>
     </div>
     <br>
 

@@ -128,7 +128,8 @@ function verProductosCarrito() {
               <p class="card-text">Precio $: ${productos[i].almacen.producto.precio}</p>
               <p class="card-text" >Total $: ${productos[i].total}</p>
                </div>
-               <button class="btn btn-primary" type="button" onclick="eliminarProductoCarrito(${productos[i].id})">Eliminar Producto</button>
+
+               <button class="btn btn-close text-bg-light" type="button" onclick="eliminarProductoCarrito(${productos[i].id})"></button>
             </div>
     
         </div>
