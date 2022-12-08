@@ -19,6 +19,7 @@ function agregarProductoCarrito(id){
 
 
     const registrarCarro=(tallaP)=>{
+        if(cantidad<=tallaP.stock){
 
     let total=cantidad*tallaP.producto.precio; 
     const carrito={
@@ -42,7 +43,9 @@ function agregarProductoCarrito(id){
 
     
 
-
+    }else{
+        alert("!Esa catidad no esta disponible!  stock:"+tallaP.stock)
+    }
     }
 
 }

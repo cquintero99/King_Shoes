@@ -125,7 +125,7 @@ function verProductosCarrito() {
                            
               
               
-              <p class="card-text">Precio $: ${productos[i].almacen.producto.precio}</p>
+              <p class="card-text ">Precio $: ${productos[i].almacen.producto.precio}</p>
               <p class="card-text" >Total $: ${productos[i].total}</p>
                </div>
 
@@ -147,9 +147,9 @@ function verProductosCarrito() {
 
 
 
-      nProductos += productos[i].cantidad;
+      
 
-      totalPagar = productos[i].almacen.producto.precio * nProductos;
+      totalPagar += productos[i].almacen.producto.precio *productos[i].cantidad;
       cargarImgCarrito(productos[i].id,productos[i].almacen.producto.id)
       console.log("ID TALLA PRODUCTOS"+productos[i].almacen.producto.id)
 
@@ -158,7 +158,7 @@ function verProductosCarrito() {
       `
     <div class="col-md-10 offset-md-2 text-center   ">
     <div class="text-bg-success p-2">
-    <button class="btn btn-success"  ><h4>Realizar Pedido</h4></button>
+    <button class="btn btn-success" onclick="cargarPedido(4)" ><h4>Realizar Pedido</h4></button>
        </div>
     
     </div>
@@ -181,7 +181,7 @@ function verProductosCarrito() {
         <p>Costo de envio $: GRATIS</p>
         <br>
         <p>Total a pagar $: ${totalPagar} </p>
-        
+        <p>Metodo de pago: CONTRA ENTREGA</p>
         
       </div>
      
@@ -201,6 +201,7 @@ function verProductosCarrito() {
 /*
 <p class="card-text ">Categoria: ${productos[i].almacen.producto.categoria.descripcion}</p> 
 */
+
 
 function  eliminarProductoCarrito(id){
   console.log(id)
