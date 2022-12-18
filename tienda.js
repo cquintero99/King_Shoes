@@ -1,23 +1,25 @@
-var aux=0;
-function verFormulario(){
-   
-    if(aux==0){
-        document.getElementById("cargarFormularioP").style.visibility="visible";
-    $("#cargarFormularioP").load('tienda/registrar.html')
-    cargarCategorias();
-    cargarMarcas();
-    aux=1;
-    }else{
+var aux = 0;
+function verFormulario() {
+
+    if (aux == 0) {
+        document.getElementById("cargarFormularioP").style.visibility = "visible";
+        $("#cargarFormularioP").load('tienda/registrar.html')
+        cargarCategorias();
+        cargarMarcas();
+        aux = 1;
+    } else {
         $("fp").empty();
-        document.getElementById("fp").style.visibility="hidden";
-        aux=0;
+        document.getElementById("fp").style.visibility = "hidden";
+        aux = 0;
     }
-    
+
 
 }
-function cargarInventario(){
+function cargarInventario() {
+
+    $("#contenedor").load('tienda/inventario.html')
     
-$("#contenedor").load('tienda/inventario.html')
+    buscarProductoTienda();
 
 }
 
@@ -26,12 +28,12 @@ function registrarTienda() {
     var id_usuario = document.getElementById('inputIdUserTienda').value;
     var nombre = document.getElementById('inputNombreT').value;
     var descripcion = document.getElementById('inputDescripcionT').value;
-    let fecha=new Date();
+    let fecha = new Date();
     const tienda = {
         idUsuario: id_usuario,
         nombre: nombre,
         descripcion: descripcion,
-        fechaRegistro:fecha.toLocaleDateString()
+        fechaRegistro: fecha.toLocaleDateString()
 
     }
     console.log(tienda)
@@ -48,7 +50,11 @@ function registrarTienda() {
 }
 
 function buscarProductoTienda() {
-    var id = document.getElementById('inputBuscarTId').value;
+   
+    
+   
+    let id=localStorage.getItem("idTienda")
+
     fetch('http://localhost:8080/tiendas/' + id + '/productos')
         .then(response => response.json())
         .then(data => mostrarProductoTienda(data))
@@ -87,13 +93,14 @@ function buscarProductoTienda() {
                 </div>
                 </th>
                 </tr>`
-                cargarImg(data[i].id)
+            cargarImg(data[i].id)
         }
-       
+
         document.getElementById('tablaProductosTienda').innerHTML = body
-       
+
 
     }
+
 
 }
 /*
@@ -113,50 +120,50 @@ function cargarImg(id){
   }
   */
 function registrarFotoProducto() {
-    
-            const formData = new FormData();
-            const file = document.getElementById('inputImgP').files[0];
-            let nombre=document.getElementById('inputNombreP').value;
-            file.name=nombre+".jpg";
-           
-            if(localStorage.getItem("idProducto")!=null){
-            let idProducto=localStorage.getItem("idProducto")
-            
-            formData.append('name',idProducto)
-            formData.append( 'file',file);
-            formData.append('ubicacion',"archivos")
-            
 
-            console.log(file)
-            console.log(file.src)
-            
-            
-                fetch('http://localhost:8080/api/files', {
-                    method: 'POST',
-                    body:  formData,
-                        
-                    
-                    
-                  })
-                  .then(response => Promise.all([response.status, response.json()]))
-                  .then(function([status, myJson]) {
-                      if (status == 200) {
+    const formData = new FormData();
+    const file = document.getElementById('inputImgP').files[0];
+    let nombre = document.getElementById('inputNombreP').value;
+    file.name = nombre + ".jpg";
 
-                          console.log("succeed!");
-                      } else {
-                          console.log("failed!");
-                      }
-                  })
-                  .catch(error => console.log(error.message));
-                }else{
-                    alert("Primero debes registrar el Producto")
+    if (localStorage.getItem("idProducto") != null) {
+        let idProducto = localStorage.getItem("idProducto")
+
+        formData.append('name', idProducto)
+        formData.append('file', file);
+        formData.append('ubicacion', "archivos")
+
+
+        console.log(file)
+        console.log(file.src)
+
+
+        fetch('http://localhost:8080/api/files', {
+            method: 'POST',
+            body: formData,
+
+
+
+        })
+            .then(response => Promise.all([response.status, response.json()]))
+            .then(function ([status, myJson]) {
+                if (status == 200) {
+
+                    console.log("succeed!");
+                } else {
+                    console.log("failed!");
                 }
+            })
+            .catch(error => console.log(error.message));
+    } else {
+        alert("Primero debes registrar el Producto")
+    }
 
 }
 
 
 function registrarProductos() {
-    var id_tienda = document.getElementById('inputIdTienda').value;
+    var id_tienda = localStorage.getItem("idTienda");
     var nombreP = document.getElementById('inputNombreP').value;
     var precioP = document.getElementById('inputPrecioP').value;
     var selectCategoria = document.getElementById("categoriaP");
@@ -193,29 +200,29 @@ function registrarProductos() {
 
             }
             console.log(JSON.stringify(newProducto))
-            
-            
-            
-             fetch('http://localhost:8080/productos/save',{
-                 method:"POST",
-                 body:JSON.stringify(newProducto),
-                 headers:{
-                     "Content-type":"application/json"
-                 }
- 
- 
-             }).then(response=>response.json())
-                 .then(producto=>{
+
+
+
+            fetch('http://localhost:8080/productos/save', {
+                method: "POST",
+                body: JSON.stringify(newProducto),
+                headers: {
+                    "Content-type": "application/json"
+                }
+
+
+            }).then(response => response.json())
+                .then(producto => {
                     alert("Ya puedes registrar la imagen del producto")
                     console.log(producto)
-                    let idProducto=producto.id;
-                    localStorage.setItem("idProducto",idProducto)
+                    let idProducto = producto.id;
+                    localStorage.setItem("idProducto", idProducto)
                     console.log(producto.id)
-                    document.getElementById('guardarImagen').style="display:visible";
-                    
-                 })
-                 
-                
+                    document.getElementById('guardarImagen').style = "display:visible";
+
+                })
+
+
 
         }
     }
@@ -247,17 +254,17 @@ function registrarTallaProducto() {
     let selectTalla = document.getElementById("tallasProducto");
     let idTalla = selectTalla.value;
     let numeroTalla = selectTalla.options[selectTalla.selectedIndex].text;
-    
-   
+
+
     const buscarProductoId = (data) => {
         const newTalla = {
             producto: data,
             stock: stock,
             talla: {
-                id:idTalla,
-                numero:numeroTalla
+                id: idTalla,
+                numero: numeroTalla
             },
-            ref:data.id+"-"+numeroTalla
+            ref: data.id + "-" + numeroTalla
 
         }
         console.log(JSON.stringify(newTalla))
@@ -320,6 +327,7 @@ function listarProductos() {
     fetch('http://localhost:8080/productos')
         .then(response => response.json())
         .then(data => mostrarProductos(data))
+        .catch(err=>console.log("no tiene productos registrados"))
 
 
     const mostrarProductos = (data) => {
@@ -355,11 +363,11 @@ function listarProductos() {
 
 }
 
-function eliminarProducto(id){
-    fetch('http://localhost:8080/productos/'+id,{
-        method:'DELETE'
-    }).then(response=>response.json())
-        .then(user=>console.log(user))
+function eliminarProducto(id) {
+    fetch('http://localhost:8080/productos/' + id, {
+        method: 'DELETE'
+    }).then(response => response.json())
+        .then(user => console.log(user))
 }
 
 
@@ -369,7 +377,7 @@ function eliminarProducto(id){
 //Cargo html Producto
 $("#productoTienda").click(function (event) {
     $("#contenedor").load('tienda/producto.html')
-   
+
 
 })
 

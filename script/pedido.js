@@ -1,19 +1,20 @@
-function cargarPedido(){
-    $("#contenedor").load('pedido/pedido.html')
-    cargarDatosPedido();
-    verProductosPedido();
+function cargarPedido() {
+  $("#contenedor").load('pedido/pedido.html')
+  cargarDatosPedido();
+  verProductosPedido();
 }
+var idCarrito=localStorage.getItem("idCarrito")
+function verProductosPedido() {
+  
+  fetch('http://localhost:8080/carrito/'+idCarrito+'/productos')
+    .then(response => response.json())
+    .then(data => cargarP(data))
+  let body = ''
+  let total = 0;
+  const cargarP = (data) => {
+    for (let i = 0; i < data.length; i++) {
 
-function verProductosPedido(){
-    fetch('http://localhost:8080/carrito/4/productos')
-    .then(response=>response.json())
-    .then(data=>cargarP(data))
-    let body=''
-    let total=0;
-    const cargarP=(data)=>{
-        for (let i = 0; i < data.length; i++) {
-           
-        body+=
+      body +=
         `
         <div class="card-mb-3 text-center" ">
   <div class="row g-0">
@@ -22,11 +23,11 @@ function verProductosPedido(){
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">${data[i].almacen.producto.nombre}/Talla: ${data[i].almacen.talla.numero}</h5>
+      <p class="card-title fw-bold fs-6">${data[i].almacen.producto.nombre}/Talla: ${data[i].almacen.talla.numero}</p>
         <div class=" border-bottom border-dark"> 
-         <p class="card-text"><small class="text-muted">Items: ${data[i].cantidad} Precio $ ${data[i].almacen.producto.precio} </small></p>
+         <p class="card-text"><small class="text-muted">Items: ${data[i].cantidad} Precio $ ${data[i].almacen.producto.precio.toLocaleString('en')} </small></p>
          <div class="text-end">
-         <p class="card-text"><small class="text-muted">SubTotal $ ${data[i].total} </small></p>
+         <p class="card-text"><small class="text-muted">SubTotal $ ${data[i].total.toLocaleString('en')} </small></p>
          <div>
          </div>
       </div>
@@ -34,33 +35,33 @@ function verProductosPedido(){
   </div>
 </div>
         `
-        total+=data[i].almacen.producto.precio*data[i].cantidad
-        cargarImgCarrito(data[i].id,data[i].almacen.producto.id)
-        }
-        body+=`
+      total += data[i].almacen.producto.precio * data[i].cantidad
+      cargarImgCarrito(data[i].id, data[i].almacen.producto.id)
+    }
+    body += `
         <br>
         <div class="text-end  ">
         <br>
-        <h3> Total $ ${total}</h3>
+        <h3> Total $ ${total.toLocaleString('en')}</h3>
         <div>
         `
-        document.getElementById("resumen").innerHTML=body;
-    }
+    document.getElementById("resumen").innerHTML = body;
+  }
 }
 function cargarDatosPedido() {
 
-    
-    var body=''
-    fetch('http://localhost:8080/carrito/4')
-        .then(response => response.json())
-        .then(carrito => rpedido(carrito))
 
-    const rpedido = (carrito) => {
-        console.log(carrito)
-       
-       
+  var body = ''
+  fetch('http://localhost:8080/carrito/'+idCarrito)
+    .then(response => response.json())
+    .then(carrito => rpedido(carrito))
 
-        body+= `
+  const rpedido = (carrito) => {
+    console.log(carrito)
+
+
+
+    body += `
         <br>
         <div class="card">
   <h5 class="card-header text-end">
@@ -89,13 +90,17 @@ function cargarDatosPedido() {
 
 
 
-        fetch('http://localhost:8080/usuarios/'+carrito.usuario.id+'/direccion')
-        .then(res=>res.json())
-        .then(direccion=>verDireccion(direccion))
-        
-       const verDireccion=(direccion)=>{
-        console.log(direccion)
-        body+=
+    fetch('http://localhost:8080/usuarios/' + carrito.usuario.id + '/direccion')
+      .then(res => res.json())
+      .then(direccion => verDireccion(direccion))
+      .catch(err=>{
+        body+=`<h1 >Agregar una direccion +</h1>`
+        document.getElementById("infoPedido").innerHTML = body;
+      })
+
+    const verDireccion = (direccion) => {
+      console.log(direccion)
+      body +=
         `
         <div class="card ">
     <div class="card-header text-end">
@@ -134,12 +139,12 @@ function cargarDatosPedido() {
     </div>
     </div>
         `
-        
-       document.getElementById("infoPedido").innerHTML = body;
-       }
-       
-    
+
+      document.getElementById("infoPedido").innerHTML = body;
     }
+
+
+  }
 
 
 }

@@ -7,45 +7,48 @@ $("#hombre").click(function(event){
     $("#contenedor").load('categoria/categoria.html')
 })
 */
-function agregarProductoCarrito(id){
-    let selectTalla = document.getElementById("tallasC"+id);
+function agregarProductoCarrito(id) {
+    let selectTalla = document.getElementById("tallasC" + id);
     let idTalla = selectTalla.value;
-    let cantidad=document.getElementById("inputCantidad").value;
+    let cantidad = document.getElementById("inputCantidad").value;
 
 
-    fetch('http://localhost:8080/almacen/'+idTalla)
-    .then(response=>response.json())
-    .then(tallaP=>registrarCarro(tallaP))
+    fetch('http://localhost:8080/almacen/' + idTalla)
+        .then(response => response.json())
+        .then(tallaP => registrarCarro(tallaP))
 
 
-    const registrarCarro=(tallaP)=>{
-        if(cantidad<=tallaP.stock){
+    const registrarCarro = (tallaP) => {
+        if (cantidad <= tallaP.stock) {
+            
+            let total = cantidad * tallaP.producto.precio;
+            let idCarrito=localStorage.getItem("idCarrito")
+            const carrito = {
+                carrito: idCarrito,
+                almacen: tallaP,
+                cantidad: cantidad,
+                total: total
 
-    let total=cantidad*tallaP.producto.precio; 
-    const carrito={
-        carrito:4,
-        almacen:tallaP,
-        cantidad:cantidad,
-        total:total
+            }
+            console.log(JSON.stringify(carrito))
 
-    }
-    console.log(JSON.stringify(carrito))
-    
-    fetch('http://localhost:8080/carrito/productos',{
-        method:'POST',
-        body:JSON.stringify(carrito),
-        headers:{
-            "Content-type":"application/json"
+            fetch('http://localhost:8080/carrito/productos', {
+                method: 'POST',
+                body: JSON.stringify(carrito),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            }).then(response => response.json())
+                .then(carritoR => {
+                    alert("Producto: "+tallaP.producto.nombre+" Fue agregado al carrito")
+                })
+
+
+
+
+        } else {
+            alert("!Esa catidad no esta disponible!  stock:" + tallaP.stock)
         }
-    }).then(response=>response.json())
-      .then(carritoR=>console.log("Registra Carrito"+carritoR))
-
-
-    
-
-    }else{
-        alert("!Esa catidad no esta disponible!  stock:"+tallaP.stock)
-    }
     }
 
 }
@@ -88,17 +91,17 @@ function cargarMarcasFiltroSelect() {
         }
     }
 }
-function cargarTallasFiltro(){
+function cargarTallasFiltro() {
     fetch('http://localhost:8080/tallas')
-    .then(response=>response.json())
-    .then(tallas=>tallasFiltro(tallas))
+        .then(response => response.json())
+        .then(tallas => tallasFiltro(tallas))
 
-    const tallasFiltro=(tallas)=>{
-        var selectTallas=document.getElementById("tallasProducto");
-        for(let i=0;i<tallas.length;i++){
-            let id=tallas[i].id
-            let numeroData=tallas[i].numero
-            selectTallas.options[i]=new Option(numeroData,id);
+    const tallasFiltro = (tallas) => {
+        var selectTallas = document.getElementById("tallasProducto");
+        for (let i = 0; i < tallas.length; i++) {
+            let id = tallas[i].id
+            let numeroData = tallas[i].numero
+            selectTallas.options[i] = new Option(numeroData, id);
         }
     }
 }
@@ -114,35 +117,35 @@ function cargarTallas(id) {
 
     const mostrarTallas = (data) => {
 
-        if(data.length>1){
+        if (data.length > 1) {
 
-        for (let i = 0; i < data.length; i++) {
-            var selectorMarca = document.getElementById("tallasC" + data[i].producto.id);
-            var nombreData = data[i].talla.numero
-            var index = data[i].id;
-            selectorMarca.options[i] = new Option(nombreData, index);
+            for (let i = 0; i < data.length; i++) {
+                var selectorMarca = document.getElementById("tallasC" + data[i].producto.id);
+                var nombreData = data[i].talla.numero
+                var index = data[i].id;
+                selectorMarca.options[i] = new Option(nombreData, index);
+            }
+
+        } else {
+            alert(" ! Este producto se encuentra agotado ¡")
         }
-
-    }else{
-        alert(" ! Este producto se encuentra agotado ¡")
-    }
 
 
     }
 
 }
 
-function cargarImg(id){
-    fetch('http://localhost:8080/files/view/archivos/'+id+'.jpg')
-        .then(response=>response.blob())
-        .then(img=>{
-            let imagen=document.getElementById('img'+id)
-            imagen.src=URL.createObjectURL(img);
-            imagen.onload=function(evt){
-               URL.revokeObjectURL(this.src) ;
+function cargarImg(id) {
+    fetch('http://localhost:8080/files/view/archivos/' + id + '.jpg')
+        .then(response => response.blob())
+        .then(img => {
+            let imagen = document.getElementById('img' + id)
+            imagen.src = URL.createObjectURL(img);
+            imagen.onload = function (evt) {
+                URL.revokeObjectURL(this.src);
             }
         })
-        .catch(err=>console.log(err))
+        .catch(err => console.log(err))
 
 }
 
@@ -156,7 +159,8 @@ function cargarProducto(id) {
 
 
     const mostrarProductoId = (producto) => {
-        
+        let precio = producto.precio
+
 
 
         body =
@@ -181,7 +185,7 @@ function cargarProducto(id) {
                     <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
                     <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
                     </svg>
-                    Precio: ${producto.precio}
+                    Precio$ ${precio.toLocaleString('en')}
         </div>
        <form class="from ">   
         
@@ -222,8 +226,8 @@ function cargarProducto(id) {
         </div>
         <div>
         `
-        body2=
-        `
+        body2 =
+            `
         <div class=" border border-dark">
             <div class="text-bg-dark colorBlack p-3">
               
@@ -248,10 +252,10 @@ function cargarProducto(id) {
         cargarImg(producto.id)
         cargarTallas(producto.id)
         document.getElementById("fromProducto").innerHTML = body;
-        document.getElementById("imgProducto").innerHTML=body2;
+        document.getElementById("imgProducto").innerHTML = body2;
         document.getElementById("labelMarca").innerHTML = producto.marca.nombre;
-        
-    document.getElementById('inputCantidad').value=1;
+
+        document.getElementById('inputCantidad').value = 1;
 
     }
 
@@ -263,7 +267,7 @@ function cargarProducto(id) {
 
 //Cargo los productos por categoria
 function mostrarCategoria(categoria) {
-    
+
 
 
     $("#contenedor").load('categoria/categoria.html')
@@ -274,12 +278,12 @@ function mostrarCategoria(categoria) {
 
     const mostrarProductosHombre = (data) => {
 
-        
+
 
         let body = ''
         for (let i = 0; i < data.length; i++) {
-           
 
+            let precio = data[i].precio
             body +=
                 `<div class="col ">  
     <div class="abs-center" > 
@@ -302,7 +306,7 @@ function mostrarCategoria(categoria) {
                     <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
                     <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
                     <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
-                    </svg>  Precio : ${data[i].precio} 
+                    </svg>  Precio $ ${precio.toLocaleString('en')} 
                 <p> 
             </div>
                
@@ -340,7 +344,7 @@ function mostrarCategoria(categoria) {
             */
 
 
-             cargarImg(data[i].id)
+            cargarImg(data[i].id)
         }
         document.getElementById('categoriaProductos').innerHTML = body;
 
