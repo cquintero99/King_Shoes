@@ -2,7 +2,6 @@ function cargarPerfil(){
     $("#contenedor").load('login/perfil.html')
 }
 
- 
  function actualizarPerfil(){
    // $("#actualizarPerfil").load('login/login.html')
    let cedula=JSON.parse(sessionStorage.getItem("tokenUser")).cedula;

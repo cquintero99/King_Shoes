@@ -23,7 +23,7 @@ function agregarProductoCarrito(id) {
             
             let total = cantidad * tallaP.producto.precio;
             let idCarrito=sessionStorage.getItem("idCarrito")
-            if(idCarrito!=0){
+            if(idCarrito.length>=1){
             const carrito = {
                 carrito: idCarrito,
                 almacen: tallaP,
@@ -57,7 +57,7 @@ function agregarProductoCarrito(id) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Primero Debes Iniciar Sesion!',
+                    text: '¡Primero Debes Iniciar Sesion!',
                     timer: 2500,
                     footer: '<p class="fw-bolder" >King Shoes CO</p>'
                   })
