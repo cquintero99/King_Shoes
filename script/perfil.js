@@ -63,15 +63,18 @@ function cargarPerfil(){
         Swal.fire({
             icon: 'success',
             title: 'Kinshoes',
-            text: '! Bienvenido!',
-            timer: 1500,
-            footer: '<a href="../index.html">Why do I have this issue?</a>'
+            text: '! Cambio con exito!',
+            timer: 3000,
+            footer: '<a href="../index.html">contacto</a>'
           })
-        $("#contenedor").load('login/perfil.html')
+          setTimeout(carUser,500)
+        
 
       })
   }
-
+    function carUser(){
+        $("#contenedor").load('login/perfil.html')
+    }
  
  function actualizarDireccion(){
     cargarDepartamentos();

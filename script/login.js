@@ -35,29 +35,25 @@ btnEntrar.addEventListener("click",function(){
                
                    Swal.fire({
                     icon: 'success',
-                    title: 'Kinshoes',
-                    text: '! Bienvenido!',
-                    timer: 1500,
-                    footer: '<a href="../index.html">Why do I have this issue?</a>'
+                    title: 'Bienvenido',
+                    text: user.nombre+" "+user.apellido,
+                    timer: 1000,
+                    footer: '<p class="fw-bolder" >King Shoes CO</p>'
                   })
                 
                   setTimeout(recargar, 1500);
                   setTimeout(perfil,2100);
                   
-                 // location.reload()
-                
-                  
-                  
-                  // cambiarMenu(user.id_rol)
+                 
                 })
             }else{
-                //alert("DATOS INCORECTOS")
+               
                 Swal.fire({
                   icon: 'error',
                   title: 'Oops...',
                   text: 'Datos Incorrectos!',
                   timer: 1500,
-                  footer: '<a href="">Why do I have this issue?</a>'
+                  footer: '<p class="fw-bolder" >King Shoes CO</p>'
                 })
             }
           /*
@@ -176,9 +172,34 @@ function cerrarSesion(){
   sessionStorage.setItem("tokenUser","")
   sessionStorage.setItem("idTienda","")
   sessionStorage.setItem("idCarrito","")
-    sessionStorage.setItem("idProducto","")
-    location.reload()
+  sessionStorage.setItem("idProducto","")
+  sessionStorage.setItem("cedulaUser","")
+  let timerInterval
+Swal.fire({
+  icon:'info',
+  title: 'Cerrando Cession!',
+  html: 'Saliendo en : <b></b> milliseconds.',
+  timer: 1500,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading()
+    const b = Swal.getHtmlContainer().querySelector('b')
+    timerInterval = setInterval(() => {
+      b.textContent = Swal.getTimerLeft()
+    }, 100)
+  },
+  willClose: () => {
+    clearInterval(timerInterval)
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    console.log('I was closed by the timer')
+  }
+})
+setTimeout(recargar, 1500);
 }
+
 const btnCerrar=document.getElementById("cuentaCerrar")
 
 btnCerrar.addEventListener("click",function(){
@@ -187,7 +208,30 @@ btnCerrar.addEventListener("click",function(){
   sessionStorage.setItem("idCarrito","")
   sessionStorage.setItem("idProducto","")
   sessionStorage.setItem("cedulaUser","")
-    location.reload()
+  let timerInterval
+Swal.fire({
+  icon:'info',
+  title: 'Cerrando Cession!',
+  html: 'Saliendo en : <b></b> milliseconds.',
+  timer: 1500,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading()
+    const b = Swal.getHtmlContainer().querySelector('b')
+    timerInterval = setInterval(() => {
+      b.textContent = Swal.getTimerLeft()
+    }, 100)
+  },
+  willClose: () => {
+    clearInterval(timerInterval)
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    console.log('I was closed by the timer')
+  }
+})
+setTimeout(recargar, 1500);
 })
 
 

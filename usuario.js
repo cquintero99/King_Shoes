@@ -98,7 +98,11 @@ function registrarCarro() {
 
   }
 }
-
+function verProductosCarro(){
+  $("#contenedor").load('usuario/carrito.html')
+    let id=sessionStorage.getItem("idCarrito");
+    verProductosCarrito(id)
+}
 $("#btnCarrito").click(function (event) {
   $("#contenedor").load('usuario/carrito.html')
     let id=sessionStorage.getItem("idCarrito");
@@ -254,7 +258,11 @@ function eliminarProductoCarrito(id) {
     .then(data => console.log(data))
   document.getElementById('cardCarrito' + id).innerHTML = null;
 
-
+  
+  let etiquetaAudio = document.createElement("audio")
+  etiquetaAudio.setAttribute("src", "/tono/tono.mp3")
+  etiquetaAudio.play() 
+  setTimeout(verProductosCarro,50)
 
 
 }

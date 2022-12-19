@@ -42,16 +42,36 @@ function agregarProductoCarrito(id) {
                 }
             }).then(response => response.json())
                 .then(carritoR => {
-                    alert("Producto: "+tallaP.producto.nombre+" Fue agregado al carrito")
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'TU CARRITO TIENE UN PRODUCTO NUEVO',
+                        text: tallaP.producto.nombre,
+                        timer: 2250,
+                        footer: '<p class="fw-bolder" >King Shoes CO</p>'
+                      })
                 })
 
 
 
             }else{
-                alert("Primero debes iniciar sesion")
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Primero Debes Iniciar Sesion!',
+                    timer: 2500,
+                    footer: '<p class="fw-bolder" >King Shoes CO</p>'
+                  })
+                
             }
         } else {
-            alert("!Esa catidad no esta disponible!  stock:" + tallaP.stock)
+            Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '!Esa catidad no esta disponible!',
+                    text:' Solo quedan en  stock:' + tallaP.stock,
+                    timer: 2500,
+                    footer: '<p class="fw-bolder" >King Shoes CO</p>'
+                  })
         }
     }
 
