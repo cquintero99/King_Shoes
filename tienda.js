@@ -53,7 +53,7 @@ function buscarProductoTienda() {
    
     
    
-    let id=localStorage.getItem("idTienda")
+    let id=sessionStorage.getItem("idTienda")
 
     fetch('http://localhost:8080/tiendas/' + id + '/productos')
         .then(response => response.json())
@@ -163,7 +163,7 @@ function registrarFotoProducto() {
 
 
 function registrarProductos() {
-    var id_tienda = localStorage.getItem("idTienda");
+    var id_tienda = sessionStorage.getItem("idTienda");
     var nombreP = document.getElementById('inputNombreP').value;
     var precioP = document.getElementById('inputPrecioP').value;
     var selectCategoria = document.getElementById("categoriaP");
@@ -216,7 +216,7 @@ function registrarProductos() {
                     alert("Ya puedes registrar la imagen del producto")
                     console.log(producto)
                     let idProducto = producto.id;
-                    localStorage.setItem("idProducto", idProducto)
+                    sessionStorage.setItem("idProducto", idProducto)
                     console.log(producto.id)
                     document.getElementById('guardarImagen').style = "display:visible";
 
@@ -241,7 +241,7 @@ function pasarDataProducto(data) {
 //RegistrarTalla
 function registrarTallaProducto() {
     var id = document.getElementById('inputIdProducto').value
-    console.log(id)
+    
     fetch('http://localhost:8080/productos/' + id)
         .then(response => response.json())
         .then(data => buscarProductoId(data))
@@ -267,7 +267,7 @@ function registrarTallaProducto() {
             ref: data.id + "-" + numeroTalla
 
         }
-        console.log(JSON.stringify(newTalla))
+        
         fetch('http://localhost:8080/almacen/save', {
             method: 'POST',
             body: JSON.stringify(newTalla),
@@ -276,7 +276,9 @@ function registrarTallaProducto() {
             }
 
         }).then(response => response.json())
-            .then(talla => console.log("REGISTRADA::" + talla))
+            .then(talla => {
+                alert("Talla registrada")
+            })
 
 
     }
@@ -290,7 +292,7 @@ function verTallasProducto(id) {
         .catch(error => console.log(error))
 
     const mostrarTallasP = (tallas) => {
-        console.log(tallas)
+        
         let body = ``
         for (let i = 0; i < tallas.length; i++) {
             body += `<tr>
@@ -331,7 +333,7 @@ function listarProductos() {
 
 
     const mostrarProductos = (data) => {
-        console.log(data)
+      
         let body = ''
         for (let i = 0; i < data.length; i++) {
             body += `
@@ -449,7 +451,7 @@ $("#listaTiendas").click(function (event) {
         .catch(error => console.log(error))
 
     const mostrarTiendas = (data) => {
-        console.log(data)
+       
         let body = ''
         for (let i = 0; i < data.length; i++) {
             body += `<tr>

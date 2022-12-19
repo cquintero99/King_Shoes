@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br>
+    <div class="text-dark border-bottom border-dark " >
+
+      <h3 class="fw-bolder" id="nombreUserT">Bienvenido  </h3>
+    </div>
+    <br>
+    <div class="accordion border" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" onclick="actualizarPerfil()" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <p class="fw-bolder" >INFORMACION CUENTA</p> 
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body" id="actualizarPerfil">
+              <strong>Puedes Actualizar la siguiente informacion de tu perfil .</strong> 
+              <div class="text-bg-light p-3">
+                <form id="fromResgistrar" class="from ">
+                  <div class="row mb-3">
+        
+                    <label for="inputCedula" class="col-sm-2 col-form-label">Cedula</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" id="inputCedula"  required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputNombre" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputApellidos" class="col-sm-2 col-form-label">Apellidos</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputApellidos" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+        
+                    <label for=" " class="col-sm-2 col-form-label">Genero</label>
+                    <div class="col-sm-10">
+                      <select class="form-select" id="selectGenero">
+                        <option value="1" selected>Masculino</option>
+                        <option value="2">Femenino</option>
+                        <option value="3">Otro</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputFecha" class="col-sm-2 col-form-label">Fecha Nacimiento</label>
+                    <div class="col-sm-10">
+                      <input type="date" class="form-control" id="inputFecha" required>
+        
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" id="inputEmail" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                      <input type="password" class="form-control" id="inputPassword" required>
+                    </div>
+                  </div>
+                  <div class="row ">
+                    <div class="col text-center">
+                      <button class="btn btn-primary "  id="cambiarInformacion" onclick="cambiarInformacion2()"> Actualizar Informacion</button>
+                    </div>
+                  </div>
+                  
+        
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" onclick="actualizarDireccion()" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <p class="fw-bolder" >DIRECCION</p>  
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>Puedes actualizar la informacion de tu direccion</strong>
+              <div class="text-bg-light p-3">
+                <form id="fromResgistrarDireccion" class="from ">
+                  <div class="row mb-3">
+        
+                    <label for="inputDireccion" class="col-sm-2 col-form-label">Direccion</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" id="inputDireccion"  required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputComplemento" class="col-sm-2 col-form-label">Complemento</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputComplemento" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputBarrio" class="col-sm-2 col-form-label">Barrio</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputBarrio" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+        
+                    <label for=" " class="col-sm-2 col-form-label">Departamento</label>
+                    <div class="col-sm-10">
+                      <select class="form-select" aria-label="Default select example"  id="selectDepartamentos" onclick="cargarMunicipios()" >
+                       
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="row mb-3">
+        
+                    <label for=" " class="col-sm-2 col-form-label">Municipio</label>
+                    <div class="col-sm-10">
+                      <select class="form-select" id="selectMunicipio">
+                       
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputTelefono" class="col-sm-2 col-form-label">Telefono</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputTelefono" required>
+                    </div>
+                  </div>
+
+                 
+                  
+                  <div class="row ">
+                    <div class="col text-center">
+                      <button class="btn btn-primary " > Actualizar Informacion</button>
+                    </div>
+                  </div>
+                  
+        
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <p class="fw-bolder" > PEDIDOS</p>
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>Lista de pedidos .</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

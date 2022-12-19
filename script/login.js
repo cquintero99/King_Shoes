@@ -26,16 +26,39 @@ btnEntrar.addEventListener("click",function(){
         
         .then(responseJson => {
             if(responseJson.status==200){
-                alert("BIENVENIDO")
+                
                 fetch('http://localhost:8080/usuarios/correo/'+email)
                 .then(response=>response.json())
                 .then(user=>{
-                    localStorage.setItem("tokenUser",JSON.stringify(user))
-                   
-                   location.reload()
+                    sessionStorage.setItem("tokenUser",JSON.stringify(user))
+                   cargarDatosCarrito()
+               
+                   Swal.fire({
+                    icon: 'success',
+                    title: 'Kinshoes',
+                    text: '! Bienvenido!',
+                    timer: 1500,
+                    footer: '<a href="../index.html">Why do I have this issue?</a>'
+                  })
+                
+                  setTimeout(recargar, 1500);
+                  setTimeout(perfil,2100);
+                  
+                 // location.reload()
+                
+                  
+                  
+                  // cambiarMenu(user.id_rol)
                 })
             }else{
-                alert("DATOS INCORECTOS")
+                //alert("DATOS INCORECTOS")
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Datos Incorrectos!',
+                  timer: 1500,
+                  footer: '<a href="">Why do I have this issue?</a>'
+                })
             }
           /*
           const tokenInfo = this.state.token;
@@ -47,11 +70,38 @@ btnEntrar.addEventListener("click",function(){
   
     
 })
+const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+if (toastTrigger) {
+  toastTrigger.addEventListener('click', () => {
+    const toast = new bootstrap.Toast(toastLiveExample)
 
-if(localStorage.getItem("tokenUser")!=""){
+    toast.show()
+  })
+}
+function recargar(){
+  location.reload();
+  
+}
+function perfil(){
+  $("#contenedor").load('login/perfil.html')
+}
+
+function cargarDatosCarrito(){
+  var idUser = JSON.parse(sessionStorage.getItem("tokenUser")).id;
+  fetch('http://localhost:8080/usuarios/' + idUser + '/carrito')
+    .then(response => response.json())
+    .then(carrito => {
+      
+      sessionStorage.setItem("idCarrito", carrito[0].id)
+     // verProductosCarrito(carrito[0].id);
+    })
+}
+
+if(sessionStorage.getItem("tokenUser")!=""){
     
-var rolUser=JSON.parse(localStorage.getItem("tokenUser")).id_rol;
-var idUser=JSON.parse(localStorage.getItem("tokenUser")).id;
+var rolUser=JSON.parse(sessionStorage.getItem("tokenUser")).id_rol;
+var idUser=JSON.parse(sessionStorage.getItem("tokenUser")).id;
 
 
 if(rolUser!=0){
@@ -67,7 +117,7 @@ function cambiarMenu(rol){
         let body1=
         `
         <li>
-        <button type="button " class="btn"><a class="dropdown-item" href="#" id="cuentaPerfil">Perfil
+        <button type="button " class="btn"><a class="dropdown-item" href="#" id="cuentaPerfil" onclick="cargarPerfil()">Perfil
           </a>
         </button>
 
@@ -97,7 +147,7 @@ function cambiarMenu(rol){
         let body2=
         `
         <li>
-        <button type="button " class="btn"><a class="dropdown-item" href="#" id="cuentaPerfil">Perfil
+        <button type="button " class="btn"><a class="dropdown-item" href="#" id="cuentaPerfil" onclick="cargarPerfil()">Perfil
           </a>
         </button>
 
@@ -123,28 +173,32 @@ function cambiarMenu(rol){
 }
 
 function cerrarSesion(){
-    localStorage.setItem("tokenUser","")
-    localStorage.setItem("idTienda","")
-    localStorage.setItem("idCarrito","")
-    localStorage.setItem("idProducto","")
+  sessionStorage.setItem("tokenUser","")
+  sessionStorage.setItem("idTienda","")
+  sessionStorage.setItem("idCarrito","")
+    sessionStorage.setItem("idProducto","")
     location.reload()
 }
 const btnCerrar=document.getElementById("cuentaCerrar")
 
 btnCerrar.addEventListener("click",function(){
-    localStorage.setItem("tokenUser","")
-    localStorage.setItem("idTienda","")
-    localStorage.setItem("idCarrito","")
-    localStorage.setItem("idProducto","")
+  sessionStorage.setItem("tokenUser","")
+  sessionStorage.setItem("idTienda","")
+  sessionStorage.setItem("idCarrito","")
+  sessionStorage.setItem("idProducto","")
+  sessionStorage.setItem("cedulaUser","")
     location.reload()
 })
+
+
+
 
 function cargarMenuT(idUser){
     fetch('http://localhost:8080/tiendas/usuario/'+idUser)
         .then(response=>response.json())
         .then(tienda=>{
-            localStorage.setItem("idTienda",tienda.id)
-            console.log(tienda)
+          sessionStorage.setItem("idTienda",tienda.id)
+           
            
                 $("#menu").load('tienda/menuTienda.html')
                 $("#contenedor").load('tienda/producto.html') 

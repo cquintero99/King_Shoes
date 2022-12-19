@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="css/estilo.css">
   <link rel="icon" type="https://cdn.sstatic.net/Sites/es/img/apple-touch-icon.png?v=7739871010e6
 " href="img/icons8-corona-96.png">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css"
+  />
   <title>KingShoes</title>
 </head>
 
@@ -163,7 +167,7 @@
   <!-- Modal -->
 
   <div class="modal fade  " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    aria-labelledby="staticBackdropLabel" aria-hidden="true" itemid="myModal">
 
     <div class="modal-dialog">
       <div class="modal-content text-bg-dark bg-dark colorBlack">
@@ -202,7 +206,7 @@
               </div>
             </div>
             <div class="abs-center">
-              <a type="button" class="btn btn-primary" id="btnInicioSecion" >Iniciar Sesion</a>
+              <a type="button" class="btn btn-primary" id="btnInicioSecion" data-bs-dismiss="modal">Iniciar Sesion</a>
 
               <a type="button" class="btn btn-primary" id="rUsuario" data-bs-dismiss="modal">Registrarme</a>
             </div>
@@ -218,6 +222,20 @@
     </div>
   </div>
 
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="...">
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+  
   <!--Contenedor  Body-->
   <div class="container" id="contenedor">
 
@@ -248,8 +266,7 @@
                     <br>cotacto KingShoesColombia@gmail.com
                   </p>
                   <div class="col_carrusel">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#exampleModalI">
+                    <button type="button" class="btn btn-primary"  onclick="vender()">
                       Mas Informacion
                     </button>
 
@@ -262,63 +279,7 @@
 
 
           <!-- Modal -->
-          <div class="modal " id="exampleModalI" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog ">
-              <div class="modal-content text-center text-bg-light">
-                <div class="modal-header text-center">
-
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <h1>KING SHOES</h1>
-                  <h5>Es un ecommerce website de ventas de zapatos </h5>
-                  <h5>Contamos con las siguientes categorias</h5>
-                  <br>
-                  <div class="container text-center">
-                    <div class="row text-center border border-dark">
-                      <div class="col text-bg-light  text-center">
-                        <h3><a href="#" class="text-decoration-none" data-bs-dismiss="modal" type="button"
-                            onclick="mostrarCategoria('hombre')">HOMBRE</a></h3>
-                      </div>
-
-                    </div>
-                    <div class="row  text-center border border-dark">
-                      <div class="col text-bg-light text-center">
-                        <h3><a href="#" class="text-decoration-none" data-bs-dismiss="modal" type="button"
-                            onclick="mostrarCategoria('mujer')">MUJER</a></h3>
-                      </div>
-
-                    </div>
-                    <div class="row  text-center border border-dark">
-                      <div class="col text-bg-light text-center">
-                        <h3><a href="#" class="text-decoration-none" data-bs-dismiss="modal" type="button"
-                            onclick="mostrarCategoria('niño')">NIÑO</a></h3>
-                      </div>
-
-                    </div>
-                    <div class="row  text-center border border-dark">
-                      <div class="col text-bg-light text-center">
-                        <h3><a href="#" class="text-decoration-none" data-bs-dismiss="modal" type="button"
-                            onclick="mostrarCategoria('niña')">NIÑA</a></h3>
-                      </div>
-
-                    </div>
-
-
-
-                  </div>
-
-
-
-
-
-                </div>
-                <div class="modal-footer">
-
-                </div>
-              </div>
-            </div>
-          </div>
+         
           <!--col 2/2-->
           <div class="col">
             <div class="abs-center">
@@ -331,7 +292,7 @@
                     <br>Solo tienes que resgistrarte.
                   </p>
                   <div class="col_carrusel">
-                    <a href="#" type="button" class="btn btn-primary" id="cuentaTienda2">Mas Informacion</a>
+                    <a href="#" type="button" class="btn btn-primary" id="cuentaTienda2" onclick="vender()">Mas Informacion</a>
                   </div>
                 </div>
               </div>
@@ -723,13 +684,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
     crossorigin="anonymous"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="script.js"></script>
   <script src="usuario.js"></script>
   <script src="tienda.js"></script>
   <script src="script/categoria.js"></script>
   <script src="script/pedido.js"></script>
   <script src="script/login.js"></script>
+  <script src="script/perfil.js"></script>
 
 
 

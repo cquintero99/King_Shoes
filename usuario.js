@@ -2,141 +2,144 @@
 
 
 
-              function registrarUsuarioLogin() {
+function registrarUsuarioLogin() {
 
-                //datos del usuario
-                const fecha = new Date();
-                var select = document.getElementById("selectGenero");
-                var value = select.value;
-                var sexo = select.options[select.selectedIndex].text;
-                var cedula = document.getElementById("inputCedula").value;
-                var nombre = document.getElementById("inputNombre").value;
-                var apellido = document.getElementById('inputApellidos').value;
-                var correo = document.getElementById('inputEmail').value;
-                var contraseña = document.getElementById('inputPassword').value;
-                var fechaNacimiento = document.getElementById('inputFecha').value;
-                const newUser = {
-                  cedula: cedula,
-                  nombre: nombre,
-                  apellido: apellido,
-                  fecha_nacimiento: fechaNacimiento,
-                  correo: correo,
-                  contraseña: contraseña,
-                  sexo: sexo,
-                  id_estado: '1',
-                  id_rol: '2',
-                  fechaRegistro: fecha.toLocaleDateString()
-                }
-                //registro el usuario
+  //datos del usuario
+  const fecha = new Date();
+  var select = document.getElementById("selectGenero");
+  var value = select.value;
+  var sexo = select.options[select.selectedIndex].text;
+  var cedula = document.getElementById("inputCedula").value;
+  var nombre = document.getElementById("inputNombre").value;
+  var apellido = document.getElementById('inputApellidos').value;
+  var correo = document.getElementById('inputEmail').value;
+  var contraseña = document.getElementById('inputPassword').value;
+  var fechaNacimiento = document.getElementById('inputFecha').value;
+  const newUser = {
+    cedula: cedula,
+    nombre: nombre,
+    apellido: apellido,
+    fecha_nacimiento: fechaNacimiento,
+    correo: correo,
+    contraseña: contraseña,
+    sexo: sexo,
+    id_estado: '1',
+    id_rol: '2',
+    fechaRegistro: fecha.toLocaleDateString()
+  }
+  //registro el usuario
 
-                fetch('http://localhost:8080/usuarios/save', {
-                  method: 'POST',
-                  body: JSON.stringify(newUser),
-                  headers: {
-                    "Content-type": "application/json"
-                  }
+  fetch('http://localhost:8080/usuarios/save', {
+    method: 'POST',
+    body: JSON.stringify(newUser),
+    headers: {
+      "Content-type": "application/json"
+    }
 
-                }).then(res => res.json())
-                  .then(user => {
-                    localStorage.setItem("cedulaUser", cedula)
-                    registrarCarro()
-                    
-                  })
+  }).then(res => res.json())
+    .then(user => {
+      sessionStorage.setItem("cedulaUser", cedula)
+      
+      sessionStorage.setItem("tokenUser", JSON.stringify(user))
+      registrarCarro()
 
-                  alert("USUARIO REGISTRADO CON EXITO")
-                  location.reload()
+    })
+
+   
 
 
 
-              }
-              /*
-                
-              
-                //registro el carrito
-                
-              */
-                function registrarCarro() {
-                  let cedula = localStorage.getItem("cedulaUser")
+}
+/*
   
-                  fetch('http://localhost:8080/usuarios/' + cedula + '/cedula')
-                    .then(response => response.json())
-                    .then(u => rcarrito(u))
-                    .catch(error => console.log(error))
-                  let total = 0;
-                  let cantidad = 0;
+ 
+  //registro el carrito
   
-  
-                  const rcarrito = (u) => {
-                    const carrito = {
-                      usuario: u,
-                      total,
-                      cantidad
-                    }
-                    console.log()
-                    fetch('http://localhost:8080/carrito/save', {
-                      method: 'POST',
-                      body: JSON.stringify(carrito),
-                      headers: {
-                        "Content-type": "application/json"
-                      }
-                    })
-                      .then(response => response.json())
-                      .then(carrito =>{
-                        localStorage.setItem("tokenUser",JSON.stringify(carrito.usuario))
-                      })
-                      
-                  }
-                }
+*/
+function registrarCarro() {
+  let cedula = sessionStorage.getItem("cedulaUser")
 
-              $("#btnCarrito").click(function (event) {
-                $("#contenedor").load('usuario/carrito.html')
-                var idUser=JSON.parse(localStorage.getItem("tokenUser")).id;
-                fetch('http://localhost:8080/usuarios/'+idUser+'/carrito')
-                .then(response=>response.json())
-                 .then(carrito=>{
-                   console.log(carrito)
-                   localStorage.setItem("idCarrito",carrito[0].id)
-                  verProductosCarrito(carrito[0].id);
+  fetch('http://localhost:8080/usuarios/' + cedula + '/cedula')
+    .then(response => response.json())
+    .then(u => rcarrito(u))
+    .catch(error => console.log(error))
+  let total = 0;
+  let cantidad = 0;
+
+
+  const rcarrito = (u) => {
+    const carrito = {
+      usuario: u,
+      total,
+      cantidad
+    }
+    console.log()
+    fetch('http://localhost:8080/carrito/save', {
+      method: 'POST',
+      body: JSON.stringify(carrito),
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(carrito => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Kinshoes',
+          text: '! Usuarios Registrado!',
+          timer: 1500,
+          footer: '<a href="../index.html">Why do I have this issue?</a>'
+        })
+      
+        setTimeout(recargar, 1500);
+        cargarDatosCarrito()
+        
+      })
+
+  }
+}
+
+$("#btnCarrito").click(function (event) {
+  $("#contenedor").load('usuario/carrito.html')
+    let id=sessionStorage.getItem("idCarrito");
+    verProductosCarrito(id)
+
+
 })
 
-                
+function cargarImgCarrito(aux, id) {
+  fetch('http://localhost:8080/files/view/archivos/' + id + '.jpg')
+    .then(response => response.blob())
+    .then(img => {
 
-              })
+      let imagen = document.getElementById(aux + 'img' + id)
+      imagen.src = URL.createObjectURL(img);
+      imagen.onload = function (evt) {
+        URL.revokeObjectURL(this.src);
+      }
+    })
+    .catch(err => console.log(err))
 
-              function cargarImgCarrito(aux, id) {
-                fetch('http://localhost:8080/files/view/archivos/' + id + '.jpg')
-                  .then(response => response.blob())
-                  .then(img => {
-
-                    console.log(img)
-                    let imagen = document.getElementById(aux + 'img' + id)
-                    imagen.src = URL.createObjectURL(img);
-                    imagen.onload = function (evt) {
-                      URL.revokeObjectURL(this.src);
-                    }
-                  })
-                  .catch(err => console.log(err))
-
-              }
+}
 
 
 
-              function verProductosCarrito(id) {
-                fetch('http://localhost:8080/carrito/'+id+'/productos')
-                  .then(response => response.json())
-                  .then(productos => mostrarCarrito(productos))
+function verProductosCarrito(id) {
+  fetch('http://localhost:8080/carrito/' + id + '/productos')
+    .then(response => response.json())
+    .then(productos => mostrarCarrito(productos))
 
-                const mostrarCarrito = (productos) => {
-                  let body = ``
-                  let body2 = ``
-                  let totalPagar = 0;
-                  let nProductos = 0;
-                  for (let i = 0; i < productos.length; i++) {
-                    body +=
-                      `
+  const mostrarCarrito = (productos) => {
+    let body = ``
+    let body2 = ``
+    let totalPagar = 0;
+    let nProductos = 0;
+    for (let i = 0; i < productos.length; i++) {
+      body +=
+        `
               <div class="card mb-3 border border-dark  " style="max-width: 650px;" id="cardCarrito${productos[i].id}">
                 <div class="row g-0">
-                          <div class="col-md-4 p-3">
+                          <div class="col-md-4 p-3" >
                           <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" height="180px"  id="${productos[i].id}img${productos[i].almacen.producto.id}" alt="" width="150px" alt="" />
                           
                           </div>
@@ -190,14 +193,13 @@
 
 
 
-                    nProductos+=productos[i].cantidad;
-                    totalPagar += productos[i].almacen.producto.precio * productos[i].cantidad;
-                    cargarImgCarrito(productos[i].id, productos[i].almacen.producto.id)
-                    console.log("ID TALLA PRODUCTOS" + productos[i].almacen.producto.id)
+      nProductos += productos[i].cantidad;
+      totalPagar += productos[i].almacen.producto.precio * productos[i].cantidad;
+      cargarImgCarrito(productos[i].id, productos[i].almacen.producto.id)
 
-                  }
-                  body2 +=
-                    `
+    }
+    body2 +=
+      `
                   <div class="col-md-10 offset-md-2 text-center   ">
                   <div class="text-bg-success p-2">
                   <button class="btn btn-success" onclick="cargarPedido()" ><h4>Realizar Pedido</h4></button>
@@ -236,85 +238,41 @@
               </div>
                   
                   `
-                  document.getElementById("carritoP").innerHTML = body;
-                  document.getElementById("carritoI").innerHTML = body2;
-                }
-              }
-              /*
-              <p class="card-text ">Categoria: ${productos[i].almacen.producto.categoria.descripcion}</p> 
-              */
+    document.getElementById("carritoP").innerHTML = body;
+    document.getElementById("carritoI").innerHTML = body2;
+  }
+}
+/*
+<p class="card-text ">Categoria: ${productos[i].almacen.producto.categoria.descripcion}</p> 
+*/
 
 
-              function eliminarProductoCarrito(id) {
-                console.log(id)
-                fetch('http://localhost:8080/carrito/productos/' + id, {
-                  method: 'DELETE'
-                }).then(response => response.json())
-                  .then(data => console.log(data))
-                document.getElementById('cardCarrito' + id).innerHTML = null;
-
-
-
-
-              }
-
-            
+function eliminarProductoCarrito(id) {
+  fetch('http://localhost:8080/carrito/productos/' + id, {
+    method: 'DELETE'
+  }).then(response => response.json())
+    .then(data => console.log(data))
+  document.getElementById('cardCarrito' + id).innerHTML = null;
 
 
 
 
+}
 
 
 
+function cargarListaUsuarios() {
+  $("#contenedor").load('cuenta/admin.html')
+  fetch('http://localhost:8080/usuarios')
+    .then(response => response.json())
+    .then(data => mostrarUsuarios(data))
+    .catch(error => console.log(error))
 
-
-
-
-
-
-
-              /*
-              
-              fetch('http://localhost:8080/usuarios/'+cedula+'/cedula')
-              .then(response=>response.json())
-              .then(data=>console.log(data))
-
-              
-              const carrito={
-                usuario:data,
-                total:0,
-                cantidad:0
-              
-
-              }
-
-              console.log(JSON.stringify(carrito))
-              const registrarC=(carrito)=>{
-              fetch('http://localhost:8080/carrito/save',{
-              method:'POST',
-              body:JSON.stringify(carrito),
-              headers:{
-                "Content-type":"application/json"
-              }
-              }).then(res=>res.json())
-              .then(carrito=>console.log(carrito))
-              }
-              */
-
-
-
-              function cargarListaUsuarios() {
-                $("#contenedor").load('cuenta/admin.html')
-                fetch('http://localhost:8080/usuarios')
-                  .then(response => response.json())
-                  .then(data => mostrarUsuarios(data))
-                  .catch(error => console.log(error))
-
-                const mostrarUsuarios = (data) => {
-                  console.log(data)
-                  let body = ''
-                  for (let i = 0; i < data.length; i++) {
-                    body += `<tr> <th>${(i + 1)}</th><td>${data[i].id}</td> <td>${data[i].cedula}</td><td>${data[i].nombre}</td><td>${data[i].apellido}</td> <td>${data[i].correo}</td> <td>${data[i].sexo}</td> <td>${data[i].id_estado}</td>
+  const mostrarUsuarios = (data) => {
+    
+    let body = ''
+    for (let i = 0; i < data.length; i++) {
+      body += `<tr> <th>${(i + 1)}</th><td>${data[i].id}</td> <td>${data[i].cedula}</td><td>${data[i].nombre}</td><td>${data[i].apellido}</td> <td>${data[i].correo}</td> <td>${data[i].sexo}</td> <td>${data[i].id_estado}</td>
                     <td>${data[i].fechaRegistro}</td>
                     <td>
                               <div class="dropup-center dropup">
@@ -333,10 +291,10 @@
                               </td>
                     </tr>`
 
-                  }
-                  document.getElementById('dataUsuarios').innerHTML = body
-                }
-              }
+    }
+    document.getElementById('dataUsuarios').innerHTML = body
+  }
+}
 
 
 

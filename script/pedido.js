@@ -3,7 +3,7 @@ function cargarPedido() {
   cargarDatosPedido();
   verProductosPedido();
 }
-var idCarrito=localStorage.getItem("idCarrito")
+var idCarrito=sessionStorage.getItem("idCarrito")
 function verProductosPedido() {
   
   fetch('http://localhost:8080/carrito/'+idCarrito+'/productos')
@@ -57,7 +57,7 @@ function cargarDatosPedido() {
     .then(carrito => rpedido(carrito))
 
   const rpedido = (carrito) => {
-    console.log(carrito)
+    
 
 
 
@@ -99,7 +99,7 @@ function cargarDatosPedido() {
       })
 
     const verDireccion = (direccion) => {
-      console.log(direccion)
+      
       body +=
         `
         <div class="card ">

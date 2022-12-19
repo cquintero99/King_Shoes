@@ -22,12 +22,14 @@ function agregarProductoCarrito(id) {
         if (cantidad <= tallaP.stock) {
             
             let total = cantidad * tallaP.producto.precio;
-            let idCarrito=localStorage.getItem("idCarrito")
+            let idCarrito=sessionStorage.getItem("idCarrito")
+            if(idCarrito!=0){
             const carrito = {
                 carrito: idCarrito,
                 almacen: tallaP,
                 cantidad: cantidad,
-                total: total
+                total: total,
+                ref:idCarrito+"-"+tallaP.id
 
             }
             console.log(JSON.stringify(carrito))
@@ -45,7 +47,9 @@ function agregarProductoCarrito(id) {
 
 
 
-
+            }else{
+                alert("Primero debes iniciar sesion")
+            }
         } else {
             alert("!Esa catidad no esta disponible!  stock:" + tallaP.stock)
         }
