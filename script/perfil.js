@@ -64,19 +64,190 @@ function cargarPerfil(){
             title: 'Kinshoes',
             text: '! Cambio con exito!',
             timer: 3000,
-            footer: '<a href="../index.html">contacto</a>'
+            footer: '<p class="fw-bolder" >King Shoes CO</p>'
           })
-          setTimeout(carUser,500)
+          setTimeout(cargarPerfil,500)
         
 
       })
+      .catch(errr=>{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '¡No se pudo Actualizar ! "Verifica la informacion" ',
+            timer: 1500,
+            footer: '<p class="fw-bolder" >King Shoes CO</p>'
+          })
+
+      })
   }
-    function carUser(){
-        $("#contenedor").load('login/perfil.html')
+
+   
+
+  function verificoExisteDireccion(){
+    let idUs=JSON.parse(sessionStorage.getItem("tokenUser")).id;
+    
+    fetch('http://localhost:8080/usuarios/'+idUs+'/direccion')
+    .then(response=>response.json())
+    .then(data=>{
+        console.log(data)
+        sessionStorage.setItem("idDir",data[0].id)
+        let direccion=data[0].direccion
+        let barrio =data[0].barrio 
+        let complemento=data[0].complemento
+        let telefono=data[0].telefono
+        let departamento=data[0].municipio.departamento.id
+        let municipio=data[0].municipio.id
+        document.getElementById("inputDireccion").value=direccion
+        document.getElementById("inputBarrio").value=barrio
+        document.getElementById("inputComplemento").value=complemento
+        document.getElementById("inputTelefono").value=telefono
+       
+       $("#selectDepartamentos").val(departamento);
+       //cargarMunicipios()
+       console.log(municipio)
+       verM(municipio,data[0].municipio.municipio)
+       sessionStorage.setItem("direccion","si")
+       
+    })
+    .catch(err=>{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '¡No Tienes una Direccion Registrada! ',
+            timer: 1500,
+            footer: '<p class="fw-bolder" >King Shoes CO</p>'
+          })
+          sessionStorage.setItem("direccion","no")
+    })
+    
+    
+  }
+
+  function verM(id,nombre){
+    var selectorDepartamentos=document.getElementById("selectMunicipio");
+    var nombreData = nombre
+            var index = id;
+            selectorDepartamentos.options[0] = new Option(nombreData, index);
+  }
+ 
+
+  function saveDireccion(){
+    let tieneDireccion=sessionStorage.getItem("direccion")
+    let idU=JSON.parse(sessionStorage.getItem("tokenUser")).id;
+    let nombre=JSON.parse(sessionStorage.getItem("tokenUser")).nombre
+    let apellido=JSON.parse(sessionStorage.getItem("tokenUser")).apellido
+    let direccion= document.getElementById("inputDireccion").value
+    let barrio =document.getElementById("inputBarrio").value
+    let complemento=document.getElementById("inputComplemento").value
+    let telefono=document.getElementById("inputTelefono").value
+    let municipio=document.getElementById("selectMunicipio").value
+    if(tieneDireccion=="no"){
+    
+    fetch('http://localhost:8080/municipio/'+municipio)
+    .then(res=>res.json())
+    .then(muni=>{
+        const dir={
+            usuario_id:idU,
+            nombre,
+            apellido,
+            direccion,
+            complemento,
+            barrio,
+            telefono,
+            municipio:muni
+    
+        }
+        console.log(JSON.stringify(dir))
+       
+        
+
+        fetch('http://localhost:8080/direccion/save',{
+            method:'POST',
+            body:JSON.stringify(dir),
+            headers:{
+                "Content-type":"Application/json"
+            }
+        })
+        .then(response=>response.json)
+        .then(newDireccion=>{
+            Swal.fire({
+                icon: 'success',
+                title: 'Todo Listo',
+                text: '!Direccion registrada con exito!'+newDireccion.barrio,
+                timer: 3000,
+                footer: '<p class="fw-bolder" >King Shoes CO</p>'
+              })
+              setTimeout(cargarPerfil,500)
+            
+    
+          })
+
+        })
+        .catch(err=>{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡No se pudo registrar la direccion! ',
+                timer: 1500,
+                footer: '<p class="fw-bolder" >King Shoes CO</p>'
+              })
+
+        })
+    
+    }else if (tieneDireccion=="si") {
+        /*
+        */
+        fetch('http://localhost:8080/municipio/'+municipio)
+    .then(res=>res.json())
+    .then(muni=>{
+        const dir={
+            nombre,
+            apellido,
+            direccion,
+            complemento,
+            barrio,
+            telefono,
+            municipio:muni
+    
+        }
+        let idDir=sessionStorage.getItem("idDir")
+        fetch('http://localhost:8080/direccion/'+idDir,{
+            method:'PUT',
+            body:JSON.stringify(dir),
+            headers:{
+                "Content-type":"Application/json"
+            }
+        })
+        .then(res=>res.json())
+        .then(newDir=>{
+            Swal.fire({
+                icon: 'success',
+                title: 'Kinshoes',
+                text: '! Cambio con exito!',
+                timer: 3000,
+                footer: '<p class="fw-bolder" >King Shoes CO</p>'
+              })
+              setTimeout(cargarPerfil,500)
+        })
+        .catch(err=>{
+            alert("No se pudo cambiar")
+        })
+    })
+        
+        
     }
+    }
+   
+  
+  
+
  
  function actualizarDireccion(){
+    
+    verificoExisteDireccion();
     cargarDepartamentos();
+    
     
  }
 

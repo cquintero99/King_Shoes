@@ -7,6 +7,7 @@ $("#hombre").click(function(event){
     $("#contenedor").load('categoria/categoria.html')
 })
 */
+
 function agregarProductoCarrito(id) {
     let selectTalla = document.getElementById("tallasC" + id);
     let idTalla = selectTalla.value;
@@ -53,7 +54,7 @@ function agregarProductoCarrito(id) {
 
 
 
-            }else{
+            }else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -258,7 +259,7 @@ function cargarProducto(id) {
               <h2>Imagen</h2> 
             </div>
           <div class="text-bg-dark colorBlack p-3">
-            <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" id="img${producto.id}" alt="" width="250p" height="350px">
+            <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" onclick="ampliarImagen(${producto.id})" id="img${producto.id}" alt="" width="250p" height="350px">
           </div>
           
           <div class="text-bg-dark colorBlack p-3">
@@ -288,7 +289,10 @@ function cargarProducto(id) {
 }
 
 
+function ampliarImagen(id){
+    
 
+}
 //Cargo los productos por categoria
 function mostrarCategoria(categoria) {
 

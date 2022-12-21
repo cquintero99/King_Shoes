@@ -1,8 +1,122 @@
+function perfil(){
+  $("#contenedor").load('login/perfil.html')
+}
+function realizarPedido(){
+  let idUser=JSON.parse(sessionStorage.getItem("tokenUser")).id
+  let idDir=JSON.parse(sessionStorage.getItem("idDir"))
+  const fecha = new Date();
+  let idCarrito=sessionStorage.getItem("idCarrito")
+  const pedido={
+    usuario_id:idUser,
+    direccion_id:idDir,
+    numero_productos:0,
+    total:0,
+    fecha:fecha.toLocaleDateString(),
+    metodoPago:"Contra Entrega"
+  }
+  console.log(JSON.stringify(pedido))
+    //Busco los productos del carrito  
+    fetch('http://localhost:8080/carrito/'+idCarrito+'/productos')
+    .then(response=>response.json())
+    .then(data=>{
+      console.log(data)
+      //Creo el pedido
+      fetch('http://localhost:8080/pedidos/save',{
+  method:'POST',
+  body:JSON.stringify(pedido),
+  headers:{
+    "Content-type": "application/json"
+  }
+}).then(response=>response.json())
+  .then(newPedido=>{
+    console.log("---->pedido Registrado")
+    let total=0;
+    let items=0;
+    let numProductos=0;
+
+    for(let i=0;i<data.length;i++){
+      total+=data[i].total
+      items+=data[i].cantidad
+      const productoPedido={
+        pedido_id:newPedido.id,
+        almacen_id:data[i].almacen.id,
+        cantidad:data[i].cantidad,
+        tienda_id:data[i].almacen.producto.tienda.id,
+        precio:data[i].almacen.producto.precio,
+        estado:"En proceso",
+        fecha_pedido:fecha.toLocaleDateString()
+
+      }
+      //Registro los productos del pedido
+      fetch('http://localhost:8080/pedido/almacen/save',{
+        method:'POST',
+        body:JSON.stringify(productoPedido),
+        headers:{
+          "Content-type":"application/json"
+        }
+      })
+      .then(response=>response.json())
+      .then(newProductoPedido=>{
+        //si se registra producto
+        numProductos++;
+        fetch('http://localhost:8080/carrito/productos/' + data[i].id, {
+         method: 'DELETE'
+         }).then(response => response.json())
+         .then(data => console.log("carrito vacio producto"+data))
+        
+          console.log("PRODUCTO--->"+JSON.stringify(newProductoPedido))
+      })
+      .catch(err=>{
+        //error al registrar un pruducto
+        console.log("no se pudo registrar")
+      })
+
+    }
+    if(numProductos=data.length){
+      Swal.fire({
+        icon: 'success',
+        title: 'FELICIDADES',
+        text: "pedido creado con exito",
+        timer: 1000,
+        footer: '<p class="fw-bolder" >King Shoes CO</p>'
+      })
+      setTimeout(perfil,1080);
+    }
+    
+
+
+  })
+  .catch(err=>{
+    //no se registra el pedido
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No se puedo registrar el pedido !',
+      timer: 1500,
+      footer: '<p class="fw-bolder" >King Shoes CO</p>'
+    })
+  })
+  
+
+
+
+
+      
+    })
+
+
+  
+  
+  
+  
+}
+
 function cargarPedido() {
   $("#contenedor").load('pedido/pedido.html')
   cargarDatosPedido();
   verProductosPedido();
 }
+
 var idCarrito=sessionStorage.getItem("idCarrito")
 function verProductosPedido() {
   
@@ -99,7 +213,7 @@ function cargarDatosPedido() {
       })
 
     const verDireccion = (direccion) => {
-      
+      sessionStorage.setItem("idDir",direccion[0].id)
       body +=
         `
         <div class="card ">

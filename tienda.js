@@ -176,16 +176,16 @@ function registrarFotoProducto() {
     let nombre = document.getElementById('inputNombreP').value;
     file.name = nombre + ".jpg";
 
-    if (localStorage.getItem("idProducto") != null) {
-        let idProducto = localStorage.getItem("idProducto")
+    if (sessionStorage.getItem("idProducto") != null) {
+        let idProducto = sessionStorage.getItem("idProducto")
 
         formData.append('name', idProducto)
         formData.append('file', file);
         formData.append('ubicacion', "archivos")
 
 
-        console.log(file)
-        console.log(file.src)
+       // console.log(file)
+        //console.log(file.src)
 
 
         fetch('http://localhost:8080/api/files', {
@@ -198,8 +198,14 @@ function registrarFotoProducto() {
             .then(response => Promise.all([response.status, response.json()]))
             .then(function ([status, myJson]) {
                 if (status == 200) {
-
-                    console.log("succeed!");
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Imagen Registrada',
+                        text: 'Tu producto de registro correctamente',
+                        timer: 1000,
+                        footer: '<p class="fw-bolder" >King Shoes CO</p>'
+                      })
+                   // console.log("succeed!");
                 } else {
                     console.log("failed!");
                 }
@@ -263,11 +269,18 @@ function registrarProductos() {
 
             }).then(response => response.json())
                 .then(producto => {
-                    alert("Ya puedes registrar la imagen del producto")
-                    console.log(producto)
+                   // alert("Ya puedes registrar la imagen del producto")
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Producto Registrado',
+                        text: 'Ya puedes registrar la imagen',
+                        timer: 1000,
+                        footer: '<p class="fw-bolder" >King Shoes CO</p>'
+                      })
+                   // console.log(producto)
                     let idProducto = producto.id;
                     sessionStorage.setItem("idProducto", idProducto)
-                    console.log(producto.id)
+                   // console.log(producto.id)
                     document.getElementById('guardarImagen').style = "display:visible";
 
                 })

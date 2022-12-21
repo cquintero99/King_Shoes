@@ -103,6 +103,7 @@ function verProductosCarro(){
     let id=sessionStorage.getItem("idCarrito");
     verProductosCarrito(id)
 }
+
 $("#btnCarrito").click(function (event) {
   $("#contenedor").load('usuario/carrito.html')
     let id=sessionStorage.getItem("idCarrito");
@@ -129,9 +130,21 @@ function cargarImgCarrito(aux, id) {
 
 
 function verProductosCarrito(id) {
+  if(id!=null){
+   
+
   fetch('http://localhost:8080/carrito/' + id + '/productos')
     .then(response => response.json())
     .then(productos => mostrarCarrito(productos))
+    .catch(err=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Primero Inicia sesion!',
+        timer: 1500,
+        footer: '<p class="fw-bolder" >King Shoes CO</p>'
+      })
+    })
 
   const mostrarCarrito = (productos) => {
     let body = ``
@@ -245,6 +258,16 @@ function verProductosCarrito(id) {
     document.getElementById("carritoP").innerHTML = body;
     document.getElementById("carritoI").innerHTML = body2;
   }
+}else{
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'Primero Inicia sesion!',
+    timer: 1500,
+    footer: '<p class="fw-bolder" >King Shoes CO</p>'
+  })
+
+}
 }
 /*
 <p class="card-text ">Categoria: ${productos[i].almacen.producto.categoria.descripcion}</p> 

@@ -1,5 +1,5 @@
 const btnEntrar=document.getElementById("btnInicioSecion");
-
+localStorage.setItem("aux","0")
 btnEntrar.addEventListener("click",function(){
     let email=document.getElementById('inputEmailInicio').value
     let password=document.getElementById('inputPasswordInicio').value
@@ -14,11 +14,13 @@ btnEntrar.addEventListener("click",function(){
         
         crossDomain:true,
         method: 'POST',
+        
         headers: {
         'Content-type':'application/json Access-Control-Request-Method',
         'Access-Control-Allow-Headers':'Authorization',
         'Access-Control-Request-Method': 'POST'
     },
+    
         body: JSON.stringify(data),
         cache:'no-cache'
       })
@@ -26,7 +28,11 @@ btnEntrar.addEventListener("click",function(){
         
         .then(responseJson => {
             if(responseJson.status==200){
-                
+              console.log(responseJson)
+                localStorage.setItem("aux","1")
+
+                sessionStorage.setItem("idDir","")
+                sessionStorage.setItem("direccion","")
                 fetch('http://localhost:8080/usuarios/correo/'+email)
                 .then(response=>response.json())
                 .then(user=>{
@@ -41,11 +47,12 @@ btnEntrar.addEventListener("click",function(){
                     footer: '<p class="fw-bolder" >King Shoes CO</p>'
                   })
                 
-                  setTimeout(recargar, 1500);
-                  setTimeout(perfil,2100);
+                  setTimeout(recargar, 1050);
+                  setTimeout(perfil,1080);
                   
                  
                 })
+                
             }else{
                
                 Swal.fire({
@@ -66,6 +73,7 @@ btnEntrar.addEventListener("click",function(){
   
     
 })
+
 const toastTrigger = document.getElementById('liveToastBtn')
 const toastLiveExample = document.getElementById('liveToast')
 if (toastTrigger) {
@@ -84,7 +92,7 @@ function perfil(){
 }
 
 function cargarDatosCarrito(){
-  var idUser = JSON.parse(sessionStorage.getItem("tokenUser")).id;
+  let idUser = JSON.parse(sessionStorage.getItem("tokenUser")).id;
   fetch('http://localhost:8080/usuarios/' + idUser + '/carrito')
     .then(response => response.json())
     .then(carrito => {
@@ -92,12 +100,16 @@ function cargarDatosCarrito(){
       sessionStorage.setItem("idCarrito", carrito[0].id)
      // verProductosCarrito(carrito[0].id);
     })
+    .catch(err=>{
+      alert("inicie sesion")
+    })
 }
 
 if(sessionStorage.getItem("tokenUser")!=""){
-    
+   
 var rolUser=JSON.parse(sessionStorage.getItem("tokenUser")).id_rol;
 var idUser=JSON.parse(sessionStorage.getItem("tokenUser")).id;
+ 
 
 
 if(rolUser!=0){
@@ -169,17 +181,16 @@ function cambiarMenu(rol){
 }
 
 function cerrarSesion(){
-  sessionStorage.setItem("tokenUser","")
-  sessionStorage.setItem("idTienda","")
-  sessionStorage.setItem("idCarrito","")
-  sessionStorage.setItem("idProducto","")
-  sessionStorage.setItem("cedulaUser","")
+  localStorage.setItem("aux","0")
+  sessionStorage.clear()
+  sessionStorage.setItem("idDir","")
+  sessionStorage.setItem("direccion","")
   let timerInterval
 Swal.fire({
   icon:'info',
   title: 'Cerrando Cession!',
   html: 'Saliendo en : <b></b> milliseconds.',
-  timer: 1500,
+  timer: 500,
   timerProgressBar: true,
   didOpen: () => {
     Swal.showLoading()
@@ -213,7 +224,7 @@ Swal.fire({
   icon:'info',
   title: 'Cerrando Cession!',
   html: 'Saliendo en : <b></b> milliseconds.',
-  timer: 1500,
+  timer: 500,
   timerProgressBar: true,
   didOpen: () => {
     Swal.showLoading()
