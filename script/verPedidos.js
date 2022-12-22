@@ -71,6 +71,7 @@ function detallePedido(id){
                 <td >   <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" id="${talla.id}img${talla.producto.id}"   alt="" width="50px" height="50px">
                 </td>
                 <td >${talla.producto.nombre}</td>
+                <td>${talla.talla.numero}</td>
                 <td>${precio.toLocaleString('en')}</td>
                 <td>${cantidad}</td>
                 <td>${total}</td>

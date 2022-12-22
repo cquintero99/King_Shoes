@@ -340,7 +340,22 @@ function registrarTallaProducto() {
 
         }).then(response => response.json())
             .then(talla => {
-                alert("Talla registrada")
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: 'Talla registrada con exito',
+                    timer: 1000,
+                    footer: '<p class="fw-bolder" >King Shoes CO</p>'
+                  })
+            })
+            .catch(err=>{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No se registro la talla !',
+                    timer: 1500,
+                    footer: '<p class="fw-bolder" >King Shoes CO</p>'
+                  })
             })
 
 

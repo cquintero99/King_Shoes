@@ -9,11 +9,11 @@ function perfilPedido(){
   })
 }
 function realizarPedido(){
-  if(sessionStorage.getItem("direccion")=="si"){
+  if(sessionStorage.getItem("direccion")=="si" || sessionStorage.getItem("idDir")>=1){
 
   
   let idUser=JSON.parse(sessionStorage.getItem("tokenUser")).id
-  let idDir=JSON.parse(sessionStorage.getItem("idDir"))
+  let idDir=sessionStorage.getItem("idDir")
   const fecha = new Date();
   let idCarrito=sessionStorage.getItem("idCarrito")
   const pedido={

@@ -66,7 +66,7 @@ function agregarProductoCarrito(id) {
                         icon: 'success',
                         title: 'TU CARRITO TIENE UN PRODUCTO NUEVO',
                         text: tallaP.producto.nombre,
-                        timer: 2250,
+                        timer: 1500,
                         footer: '<p class="fw-bolder" >King Shoes CO</p>'
                       })
                 })
