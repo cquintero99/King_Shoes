@@ -90,7 +90,6 @@ function cargarPerfil(){
     fetch('http://localhost:8080/usuarios/'+idUs+'/direccion')
     .then(response=>response.json())
     .then(data=>{
-        console.log(data)
         sessionStorage.setItem("idDir",data[0].id)
         let direccion=data[0].direccion
         let barrio =data[0].barrio 
@@ -105,7 +104,6 @@ function cargarPerfil(){
        
        $("#selectDepartamentos").val(departamento);
        //cargarMunicipios()
-       console.log(municipio)
        verM(municipio,data[0].municipio.municipio)
        sessionStorage.setItem("direccion","si")
        
@@ -171,6 +169,7 @@ function cargarPerfil(){
         })
         .then(response=>response.json)
         .then(newDireccion=>{
+            sessionStorage.setItem("direccion","si")
             Swal.fire({
                 icon: 'success',
                 title: 'Todo Listo',

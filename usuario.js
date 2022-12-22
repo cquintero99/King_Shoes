@@ -147,10 +147,12 @@ function verProductosCarrito(id) {
     })
 
   const mostrarCarrito = (productos) => {
+    if(productos.length>=1){  
     let body = ``
     let body2 = ``
     let totalPagar = 0;
     let nProductos = 0;
+
     for (let i = 0; i < productos.length; i++) {
       body +=
         `
@@ -255,8 +257,15 @@ function verProductosCarrito(id) {
               </div>
                   
                   `
-    document.getElementById("carritoP").innerHTML = body;
+                  document.getElementById("carritoP").innerHTML = body;
     document.getElementById("carritoI").innerHTML = body2;
+  }else{
+    body=
+    `<h3>Vacio ....</h3>`
+    document.getElementById("carritoP").innerHTML = body;
+  }
+
+    
   }
 }else{
   Swal.fire({

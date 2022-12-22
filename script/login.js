@@ -208,7 +208,7 @@ Swal.fire({
     console.log('I was closed by the timer')
   }
 })
-setTimeout(recargar, 1500);
+setTimeout(recargar, 550);
 }
 
 const btnCerrar=document.getElementById("cuentaCerrar")

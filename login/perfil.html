@@ -166,7 +166,45 @@
           </h2>
           <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-              <strong>Lista de pedidos .</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+              <strong>Lista de pedidos .</strong> 
+              <div class="container" id="contenedorPedidos">
+
+              </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+   
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Productos </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body " >
+             <table class="table table-responsive table-striped " id="lista">
+              <thead class="table-dark">
+                <tr> 
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody id="detallePedido">
+
+              </tbody>
+             </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+              
             </div>
           </div>
         </div>

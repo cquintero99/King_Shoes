@@ -13,10 +13,30 @@ function agregarProductoCarrito(id) {
     let idTalla = selectTalla.value;
     let cantidad = document.getElementById("inputCantidad").value;
 
-
+    if(idTalla>=1){
     fetch('http://localhost:8080/almacen/' + idTalla)
         .then(response => response.json())
         .then(tallaP => registrarCarro(tallaP))
+        .catch(err=>{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Primero inicia sesion!',
+                timer: 1500,
+                footer: '<p class="fw-bolder" >King Shoes CO</p>'
+              })
+        })
+    }else{
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No Hay tallas disponibles!',
+            timer: 1500,
+            footer: '<p class="fw-bolder" >King Shoes CO</p>'
+          })
+
+    }
 
 
     const registrarCarro = (tallaP) => {
@@ -33,7 +53,6 @@ function agregarProductoCarrito(id) {
                 ref:idCarrito+"-"+tallaP.id
 
             }
-            console.log(JSON.stringify(carrito))
 
             fetch('http://localhost:8080/carrito/productos', {
                 method: 'POST',
@@ -152,7 +171,13 @@ function cargarTallas(id) {
             }
 
         } else {
-            alert(" ! Este producto se encuentra agotado ¡")
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Este producto se encuentra agotado!',
+                timer: 1500,
+                footer: '<p class="fw-bolder" >King Shoes CO</p>'
+              })
         }
 
 
@@ -290,6 +315,14 @@ function cargarProducto(id) {
 
 
 function ampliarImagen(id){
+    Swal.fire({
+        title: 'Sweet!',
+        text: 'Modal with a custom image.'+id,
+        imageUrl: 'https://unsplash.it/400/200',
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+      })
     
 
 }

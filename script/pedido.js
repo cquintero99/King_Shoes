@@ -1,7 +1,17 @@
-function perfil(){
+function perfilPedido(){
   $("#contenedor").load('login/perfil.html')
+  Swal.fire({
+    icon: 'success',
+    title: 'FELICIDADES',
+    text: "pedido creado con exito",
+    timer: 1000,
+    footer: '<p class="fw-bolder" >King Shoes CO</p>'
+  })
 }
 function realizarPedido(){
+  if(sessionStorage.getItem("direccion")=="si"){
+
+  
   let idUser=JSON.parse(sessionStorage.getItem("tokenUser")).id
   let idDir=JSON.parse(sessionStorage.getItem("idDir"))
   const fecha = new Date();
@@ -14,22 +24,22 @@ function realizarPedido(){
     fecha:fecha.toLocaleDateString(),
     metodoPago:"Contra Entrega"
   }
-  console.log(JSON.stringify(pedido))
+  
     //Busco los productos del carrito  
     fetch('http://localhost:8080/carrito/'+idCarrito+'/productos')
     .then(response=>response.json())
     .then(data=>{
-      console.log(data)
+      
       //Creo el pedido
       fetch('http://localhost:8080/pedidos/save',{
-  method:'POST',
-  body:JSON.stringify(pedido),
-  headers:{
-    "Content-type": "application/json"
-  }
-}).then(response=>response.json())
-  .then(newPedido=>{
-    console.log("---->pedido Registrado")
+       method:'POST',
+      body:JSON.stringify(pedido),
+       headers:{
+      "Content-type": "application/json"
+       }
+      }).then(response=>response.json())
+      .then(newPedido=>{
+    
     let total=0;
     let items=0;
     let numProductos=0;
@@ -64,23 +74,88 @@ function realizarPedido(){
          }).then(response => response.json())
          .then(data => console.log("carrito vacio producto"+data))
         
-          console.log("PRODUCTO--->"+JSON.stringify(newProductoPedido))
+          
       })
       .catch(err=>{
         //error al registrar un pruducto
-        console.log("no se pudo registrar")
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se puedo registrar un producto!',
+          timer: 1500,
+          footer: '<p class="fw-bolder" >King Shoes CO</p>'
+        })
+        console.log("no se pudo registrar verificar ")
       })
 
     }
     if(numProductos=data.length){
+      const Currentpedido={
+        usuario_id:idUser,
+        direccion_id:idDir,
+        numero_productos:items,
+        total:total,
+        metodoPago:"Contra Entrega"
+      }
+      //Actualizo el precio del pedido
+      fetch('http://localhost:8080/pedidos/'+newPedido.id,{
+        method:'PUT',
+        body:JSON.stringify(Currentpedido),
+        headers:{
+          "Content-type":"application/json"
+        }
+      })
+      .then(response=>response.json())
+      .then(actualizado=>{
+        let timerInterval
+        Swal.fire({
+          icon:'info',
+          title: 'Creando Pedido!',
+          html: 'Esto tarda : <b></b> milliseconds.',
+          timer: 2500,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('I was closed by the timer')
+          }
+        })
+        
+        
+        setTimeout(perfilPedido,2500);
+      })
+      .catch(err=>{
+        console.log("Eliminar pedido si sucede este error ")
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error en el ultimo paso!',
+          timer: 1500,
+          footer: '<p class="fw-bolder" >King Shoes CO</p>'
+        })
+        console.log("error actualizar pedido precio")
+      })
+
+      
+    }else{
+      console.log("falta agregar funcionalidad eliminar pedido y volver a llenar el carrito ")
       Swal.fire({
-        icon: 'success',
-        title: 'FELICIDADES',
-        text: "pedido creado con exito",
-        timer: 1000,
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Datos Incorrectos!',
+        timer: 1500,
         footer: '<p class="fw-bolder" >King Shoes CO</p>'
       })
-      setTimeout(perfil,1080);
     }
     
 
@@ -103,10 +178,27 @@ function realizarPedido(){
 
       
     })
-
+    .catch(err=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se cargaron los producto del carrito!',
+        timer: 1500,
+        footer: '<p class="fw-bolder" >King Shoes CO</p>'
+      })
+    })
 
   
-  
+  }else{
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Primero tienes que registrar una direccion !',
+      timer: 1500,
+      footer: '<p class="fw-bolder" >King Shoes CO</p>'
+    })
+
+  }
   
   
 }
@@ -208,7 +300,7 @@ function cargarDatosPedido() {
       .then(res => res.json())
       .then(direccion => verDireccion(direccion))
       .catch(err=>{
-        body+=`<h1 >Agregar una direccion +</h1>`
+        body+=`<h3><a href="#" onclick="cargarPerfil()">Agregar una direccion +</a></h3>`
         document.getElementById("infoPedido").innerHTML = body;
       })
 
