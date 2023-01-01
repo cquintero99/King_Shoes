@@ -1,23 +1,26 @@
 
-/*
-$("#hombre").click(function(event){
-    $("#contenedor").load('categoria/categoria.html')
-})
-$("#hombre").click(function(event){
-    $("#contenedor").load('categoria/categoria.html')
-})
-*/
+var urlMarca='http://localhost:8080/marca';
+var urlTallas='http://localhost:8080/tallas';
+var urlProducto='http://localhost:8080/productos/';
+var urlAlmacen='http://localhost:8080/almacen/';
+var urlCategoria='http://localhost:8080/categoria/';
+var urlCargarImagen='http://localhost:8080/files/view/archivos/';
+var urlSaveProductoCarrito='http://localhost:8080/carrito/productos';
 
+//agrego un producto al carrito
 function agregarProductoCarrito(id) {
     let selectTalla = document.getElementById("tallasC" + id);
     let idTalla = selectTalla.value;
     let cantidad = document.getElementById("inputCantidad").value;
 
     if(idTalla>=1){
-    fetch('http://localhost:8080/almacen/' + idTalla)
+    //  Busco la talla    
+    fetch(urlAlmacen + idTalla)
         .then(response => response.json())
+        //si la talla existe
         .then(tallaP => registrarCarro(tallaP))
         .catch(err=>{
+            //Si el usuario no inicia sesion 
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -40,11 +43,13 @@ function agregarProductoCarrito(id) {
 
 
     const registrarCarro = (tallaP) => {
+        //verifico que la cantidad este disponible en el almacen 
         if (cantidad <= tallaP.stock) {
             
             let total = cantidad * tallaP.producto.precio;
             let idCarrito=sessionStorage.getItem("idCarrito")
             if(idCarrito.length>=1){
+                //creo el objecto carrito_producto
             const carrito = {
                 carrito: idCarrito,
                 almacen: tallaP,
@@ -53,12 +58,14 @@ function agregarProductoCarrito(id) {
                 ref:idCarrito+"-"+tallaP.id
 
             }
-
-            fetch('http://localhost:8080/carrito/productos', {
+            let Token=localStorage.getItem("JWT")
+            //guardo el producto en el carrito del usuario 
+            fetch(urlSaveProductoCarrito, {
                 method: 'POST',
                 body: JSON.stringify(carrito),
                 headers: {
-                    "Content-type": "application/json"
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + Token
                 }
             }).then(response => response.json())
                 .then(carritoR => {
@@ -96,33 +103,12 @@ function agregarProductoCarrito(id) {
     }
 
 }
-/*
-    const buscarProductoId = (data) => {
-        const newTalla = {
-            producto: data,
-            stock: stock,
-            talla: {
-                id:idTalla,
-                numero:numeroTalla
-            }
-        }
-        console.log(JSON.stringify(newTalla))
-        fetch('http://localhost:8080/almacen/save', {
-            method: 'POST',
-            body: JSON.stringify(newTalla),
-            headers: {
-                "Content-type": "application/json"
-            }
-
-        }).then(response => response.json())
-            .then(talla => console.log("REGISTRADA::" + talla))
 
 
-    }
-*/
 
+//Busco todas las marcas
 function cargarMarcasFiltroSelect() {
-    fetch('http://localhost:8080/marca')
+    fetch(urlMarca)
         .then(response => response.json())
         .then(data => moscarMarca(data))
 
@@ -136,7 +122,7 @@ function cargarMarcasFiltroSelect() {
     }
 }
 function cargarTallasFiltro() {
-    fetch('http://localhost:8080/tallas')
+    fetch(urlTallas)
         .then(response => response.json())
         .then(tallas => tallasFiltro(tallas))
 
@@ -155,7 +141,7 @@ function cargarTallasFiltro() {
 
 function cargarTallas(id) {
 
-    fetch('http://localhost:8080/productos/' + id + '/almacen')
+    fetch(urlProducto+ id + '/almacen')
         .then(response => response.json())
         .then(data => mostrarTallas(data))
 
@@ -186,7 +172,7 @@ function cargarTallas(id) {
 }
 
 function cargarImg(id) {
-    fetch('http://localhost:8080/files/view/archivos/' + id + '.jpg')
+    fetch(urlCargarImagen + id + '.jpg')
         .then(response => response.blob())
         .then(img => {
             let imagen = document.getElementById('img' + id)
@@ -203,7 +189,7 @@ function cargarImg(id) {
 function cargarProducto(id) {
     $("#contenedor").load('categoria/producto.html');
 
-    fetch('http://localhost:8080/productos/' + id)
+    fetch(urlProducto + id)
         .then(response => response.json())
         .then(producto => mostrarProductoId(producto))
 
@@ -333,7 +319,7 @@ function mostrarCategoria(categoria) {
 
     $("#contenedor").load('categoria/categoria.html')
 
-    fetch('http://localhost:8080/categoria/' + categoria + '/productos')
+    fetch(urlCategoria + categoria + '/productos')
         .then(response => response.json())
         .then(data => mostrarProductosHombre(data))
 
@@ -345,6 +331,13 @@ function mostrarCategoria(categoria) {
         for (let i = 0; i < data.length; i++) {
 
             let precio = data[i].precio
+            let nombre=data[i].nombre;
+            let aux=''
+            if(nombre.length>=26){
+                aux=nombre.substr(0,25)
+            }else{
+                aux=nombre
+            }
             body +=
                 `<div class="col ">  
     <div class="abs-center" > 
@@ -353,7 +346,7 @@ function mostrarCategoria(categoria) {
 
             <div class="card-body text-center">
 
-                <h5 class="card-title">${data[i].nombre} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-up-right" viewBox="0 0 16 16">
+                <h5 class="card-title">${aux} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-up-right" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5z"/>
                 <path fill-rule="evenodd" d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0v-5z"/>
               </svg></h5>

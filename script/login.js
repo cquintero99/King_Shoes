@@ -1,3 +1,8 @@
+var urlLogin='http://localhost:8080/login';
+var urlUsuarioCorreo='http://localhost:8080/usuarios/correo/';
+var urlUsuario='http://localhost:8080/usuarios/';
+var urlTiendaUsuario='http://localhost:8080/tiendas/usuario/';
+
 const btnEntrar=document.getElementById("btnInicioSecion");
 localStorage.setItem("aux","0")
 btnEntrar.addEventListener("click",function(){
@@ -10,7 +15,7 @@ btnEntrar.addEventListener("click",function(){
     }
 
     //console.log(JSON.stringify(data))
-    fetch('http://localhost:8080/login', {
+    fetch(urlLogin, {
         
         crossDomain:true,
         method: 'POST',
@@ -24,46 +29,50 @@ btnEntrar.addEventListener("click",function(){
         body: JSON.stringify(data),
         cache:'no-cache'
       })
-        .then(response => response)
+        .then(response => response.text())
         
-        .then(responseJson => {
-            if(responseJson.status==200){
-              console.log(responseJson)
-                localStorage.setItem("aux","1")
-
-                sessionStorage.setItem("idDir","")
-                sessionStorage.setItem("direccion","")
-                fetch('http://localhost:8080/usuarios/correo/'+email)
-                .then(response=>response.json())
-                .then(user=>{
-                    sessionStorage.setItem("tokenUser",JSON.stringify(user))
-                   cargarDatosCarrito()
-               
-                   Swal.fire({
-                    icon: 'success',
-                    title: 'Bienvenido',
-                    text: user.nombre+" "+user.apellido,
-                    timer: 1000,
-                    footer: '<p class="fw-bolder" >King Shoes CO</p>'
-                  })
-                
-                  setTimeout(recargar, 1050);
-                  setTimeout(perfil,1080);
-                  
-                 
-                })
-                
-            }else{
-               
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: 'Datos Incorrectos!',
-                  timer: 1500,
+        .then(JWT => {
+          console.log(JWT)
+          if(JWT.length>=50){
+              localStorage.setItem("aux","1")
+              localStorage.setItem("JWT",JWT)
+              sessionStorage.setItem("idDir","")
+              sessionStorage.setItem("direccion","")
+              fetch(urlUsuarioCorreo+email)
+              .then(response=>response.json())
+              .then(user=>{
+                  sessionStorage.setItem("tokenUser",JSON.stringify(user))
+                 cargarDatosCarrito()
+             
+                 Swal.fire({
+                  icon: 'success',
+                  title: 'Bienvenido',
+                  text: user.nombre+" "+user.apellido,
+                  timer: 1000,
                   footer: '<p class="fw-bolder" >King Shoes CO</p>'
                 })
-            }
+              
+                setTimeout(recargar, 1000);
+                setTimeout(perfil,1200);
+                
+               
+              })
+              
+          }else{
+             
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Datos Incorrectos!',
+                timer: 1500,
+                footer: '<p class="fw-bolder" >King Shoes CO</p>'
+              })
+          }
+        
+
           /*
+           
+          
           const tokenInfo = this.state.token;
           if (tokenInfo !== undefined) {
             alert("No sirve")
@@ -74,15 +83,8 @@ btnEntrar.addEventListener("click",function(){
     
 })
 
-const toastTrigger = document.getElementById('liveToastBtn')
-const toastLiveExample = document.getElementById('liveToast')
-if (toastTrigger) {
-  toastTrigger.addEventListener('click', () => {
-    const toast = new bootstrap.Toast(toastLiveExample)
 
-    toast.show()
-  })
-}
+
 function recargar(){
   location.reload();
   
@@ -93,7 +95,7 @@ function perfil(){
 
 function cargarDatosCarrito(){
   let idUser = JSON.parse(sessionStorage.getItem("tokenUser")).id;
-  fetch('http://localhost:8080/usuarios/' + idUser + '/carrito')
+  fetch(urlUsuario + idUser + '/carrito')
     .then(response => response.json())
     .then(carrito => {
       
@@ -181,10 +183,8 @@ function cambiarMenu(rol){
 }
 
 function cerrarSesion(){
-  localStorage.setItem("aux","0")
+  localStorage.clear()
   sessionStorage.clear()
-  sessionStorage.setItem("idDir","")
-  sessionStorage.setItem("direccion","")
   let timerInterval
 Swal.fire({
   icon:'info',
@@ -208,17 +208,14 @@ Swal.fire({
     console.log('I was closed by the timer')
   }
 })
-setTimeout(recargar, 550);
+setTimeout(recargar, 500);
 }
 
 const btnCerrar=document.getElementById("cuentaCerrar")
 
 btnCerrar.addEventListener("click",function(){
-  sessionStorage.setItem("tokenUser","")
-  sessionStorage.setItem("idTienda","")
-  sessionStorage.setItem("idCarrito","")
-  sessionStorage.setItem("idProducto","")
-  sessionStorage.setItem("cedulaUser","")
+  localStorage.clear()
+  sessionStorage.clear()
   let timerInterval
 Swal.fire({
   icon:'info',
@@ -242,14 +239,14 @@ Swal.fire({
     console.log('I was closed by the timer')
   }
 })
-setTimeout(recargar, 1500);
+setTimeout(recargar, 500);
 })
 
 
 
 
 function cargarMenuT(idUser){
-    fetch('http://localhost:8080/tiendas/usuario/'+idUser)
+    fetch(urlTiendaUsuario+idUser)
         .then(response=>response.json())
         .then(tienda=>{
           sessionStorage.setItem("idTienda",tienda.id)
