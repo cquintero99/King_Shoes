@@ -1,20 +1,5 @@
-var aux = 0;
-function verFormulario() {
-
-    if (aux == 0) {
-        document.getElementById("cargarFormularioP").style.visibility = "visible";
-        $("#cargarFormularioP").load('tienda/registrar.html')
-        cargarCategorias();
-        cargarMarcas();
-        aux = 1;
-    } else {
-        $("fp").empty();
-        document.getElementById("fp").style.visibility = "hidden";
-        aux = 0;
-    }
 
 
-}
 function cargarInventario() {
 
     $("#contenedor").load('tienda/inventario.html')
@@ -124,7 +109,7 @@ function buscarProductoTienda() {
                 </button>
                 <ul class="dropdown-menu">
                 <li>
-                <a class="dropdown-item"  href="#" >Actualizar </a>
+                <a class="dropdown-item"  href="#" data-bs-toggle="modal" data-bs-target="#actualizarProducto" onclick="actualizarProducto(${data[i].id})">Actualizar </a>
                 </li>
                 <li>
                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onclick="verTallasProducto(${data[i].id})">Ver Tallas</a>
@@ -426,7 +411,7 @@ function listarProductos() {
                  Acciones
                 </button>
                 <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Actualizar</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#actualizarProducto" onclick="actualizarProducto(${data[i].id})">Actualizar</a></li>
                 <li>
                 <a class="dropdown-item" href="#" >Cambiar Estado</a>
                 

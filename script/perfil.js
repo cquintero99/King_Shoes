@@ -86,8 +86,12 @@ function cargarPerfil(){
 
   function verificoExisteDireccion(){
     let idUs=JSON.parse(sessionStorage.getItem("tokenUser")).id;
-    
-    fetch('http://localhost:8080/usuarios/'+idUs+'/direccion')
+    let token=localStorage.getItem("JWT")
+    fetch('http://localhost:8080/usuarios/'+idUs+'/direccion',{
+        headers:{
+            'Authorization': 'Bearer ' + token
+        }
+    })
     .then(response=>response.json())
     .then(data=>{
         sessionStorage.setItem("idDir",data[0].id)

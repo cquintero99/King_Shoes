@@ -284,8 +284,12 @@ function verProductosCarrito(id) {
 
 
 function eliminarProductoCarrito(id) {
+  let token=localStorage.getItem("JWT")
   fetch('http://localhost:8080/carrito/productos/' + id, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers:{
+      'Authorization': 'Bearer ' + token
+    }
   }).then(response => response.json())
     .then(data => console.log(data))
   document.getElementById('cardCarrito' + id).innerHTML = null;
@@ -302,8 +306,13 @@ function eliminarProductoCarrito(id) {
 
 
 function cargarListaUsuarios() {
+  let token =localStorage.getItem("JWT")
   $("#contenedor").load('cuenta/admin.html')
-  fetch('http://localhost:8080/usuarios')
+  fetch('http://localhost:8080/usuarios',{
+    headers:{
+      'Authorization': 'Bearer ' + token
+    }
+  })
     .then(response => response.json())
     .then(data => mostrarUsuarios(data))
     .catch(error => console.log(error))

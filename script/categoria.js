@@ -58,22 +58,22 @@ function agregarProductoCarrito(id) {
                 ref:idCarrito+"-"+tallaP.id
 
             }
-            let Token=localStorage.getItem("JWT")
+            let token=localStorage.getItem("JWT")
             //guardo el producto en el carrito del usuario 
             fetch(urlSaveProductoCarrito, {
                 method: 'POST',
                 body: JSON.stringify(carrito),
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + Token
+                    'Authorization': 'Bearer ' + token
                 }
             }).then(response => response.json())
                 .then(carritoR => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'TU CARRITO TIENE UN PRODUCTO NUEVO',
+                        title: 'EL PRODUCTO DE AGREGO AL CARRITO',
                         text: tallaP.producto.nombre,
-                        timer: 1500,
+                        timer: 900,
                         footer: '<p class="fw-bolder" >King Shoes CO</p>'
                       })
                 })
@@ -194,7 +194,12 @@ function cargarProducto(id) {
         .then(producto => mostrarProductoId(producto))
 
 
-    const mostrarProductoId = (producto) => {
+   
+
+
+
+}
+function mostrarProductoId(producto){
         let precio = producto.precio
 
 
@@ -270,7 +275,7 @@ function cargarProducto(id) {
               <h2>Imagen</h2> 
             </div>
           <div class="text-bg-dark colorBlack p-3">
-            <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" onclick="ampliarImagen(${producto.id})" id="img${producto.id}" alt="" width="250p" height="350px">
+            <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" onclick="ampliarImagen(${producto.id})" id="img${producto.id}" alt="" width="250p" height="350px" data-bs-toggle="modal" data-bs-target="#ampliarImg">
           </div>
           
           <div class="text-bg-dark colorBlack p-3">
@@ -293,43 +298,56 @@ function cargarProducto(id) {
 
         document.getElementById('inputCantidad').value = 1;
 
-    }
-
-
-
+    
 }
 
 
 function ampliarImagen(id){
-    Swal.fire({
-        title: 'Sweet!',
-        text: 'Modal with a custom image.'+id,
-        imageUrl: 'https://unsplash.it/400/200',
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: 'Custom image',
-      })
+
+    fetch(urlCargarImagen + id + '.jpg')
+    .then(response => response.blob())
+    .then(img => {
+        let imagen = document.getElementById('modalImg')
+        imagen.src = URL.createObjectURL(img);
+        imagen.onload = function (evt) {
+            URL.revokeObjectURL(this.src);
+        }
+    })
+    .catch(err => console.log(err))
     
+      
 
 }
 //Cargo los productos por categoria
 function mostrarCategoria(categoria) {
-
+    sessionStorage.setItem("categoria",categoria)
 
 
     $("#contenedor").load('categoria/categoria.html')
 
     fetch(urlCategoria + categoria + '/productos')
         .then(response => response.json())
-        .then(data => mostrarProductosHombre(data))
+        .then(data =>{
+        verProductosTipo(data)
+        }) //mostrarProductos(data))
+        .catch(err=>{
+            location.reload()
+        })
+     
+        
 
-    const mostrarProductosHombre = (data) => {
+  
+
+}
+
+function verProductosTipo(data){
+   // const mostrarProductos = (data) => {
 
 
 
         let body = ''
         for (let i = 0; i < data.length; i++) {
-
+    
             let precio = data[i].precio
             let nombre=data[i].nombre;
             let aux=''
@@ -338,21 +356,22 @@ function mostrarCategoria(categoria) {
             }else{
                 aux=nombre
             }
+            //cambiar el color del border
             body +=
-                `<div class="col ">  
+                `<div class="col " onclick="cargarProducto(${data[i].id})">  
     <div class="abs-center" > 
-
-        <div class="card border-dark mb-3 text-bg-light" style="width: 21rem;">
-
+    
+        <div class="card border-light mb-3 text-bg-light" style="width: 21rem;">
+    
             <div class="card-body text-center">
-
+    
                 <h5 class="card-title">${aux} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-up-right" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5z"/>
                 <path fill-rule="evenodd" d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0v-5z"/>
               </svg></h5>
-
+    
                <a  href="#"  >
-                <img src="" height="250px"  width="225px" alt="" id="img${data[i].id}" onclick="cargarProducto(${data[i].id})"></a>
+                <img src="" height="250px"  width="225px" alt="" id="img${data[i].id}" ></a>
               
              <div>
                 <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
@@ -369,8 +388,8 @@ function mostrarCategoria(categoria) {
             <path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8zm-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7z"/>
           </svg>
              Color: ${data[i].color}</p>
-
-
+    
+    
             <div> 
                 <p> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16">
                 <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"/>
@@ -378,30 +397,29 @@ function mostrarCategoria(categoria) {
                 </p>
             </div>
             
-
+    
             </div>
         </div> 
     </div>
-</div>`
+    </div>`
             /*
             <div class="d-grid gap-2  mx-auto" >
                         
                 <select class="form-select text-center"  id="tallasC${data[i].id}" >
                     <option selected>Seleccione una talla</option>
                 </select>
-
+    
                 
                 
                 <button type="button" class="btn btn-outline-primary" id="btnCarrito" onclick="agregarProductoCarrito(${data[i].id})">AGREGAR AL CARRITO</button>
             </div>
              cargarTallas(data[i].id)
             */
-
-
+    
+    
             cargarImg(data[i].id)
         }
         document.getElementById('categoriaProductos').innerHTML = body;
-
-    }
-
+    
+   // }
 }

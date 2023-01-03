@@ -1,7 +1,11 @@
 function verPedidos(){
-
+    let token=localStorage.getItem("JWT")
     let id=JSON.parse(sessionStorage.getItem("tokenUser")).id
-    fetch('http://localhost:8080/usuarios/'+id+'/pedidos')
+    fetch('http://localhost:8080/usuarios/'+id+'/pedidos',{
+        headers:{
+            'Authorization': 'Bearer ' + token
+        }
+    })
     .then(response=>response.json())
     .then(data=>{
         if(data.length>=1){
@@ -68,7 +72,7 @@ function detallePedido(id){
             .then(talla=>{
                 body+=
                 `<tr>
-                <td >   <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" id="${talla.id}img${talla.producto.id}"   alt="" width="50px" height="50px">
+                <td >   <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" onclick="cargarProducto(${talla.producto.id})" id="${talla.id}img${talla.producto.id}"  data-bs-dismiss="modal"  alt="" width="50px" height="50px">
                 </td>
                 <td >${talla.producto.nombre}</td>
                 <td>${talla.talla.numero}</td>
