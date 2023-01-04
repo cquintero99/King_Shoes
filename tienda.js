@@ -60,7 +60,6 @@ function registrarTienda() {
         fechaRegistro: fecha.toLocaleDateString()
 
     }
-    console.log(tienda)
     fetch('http://localhost:8080/tiendas/save', {
         method: 'POST',
         body: JSON.stringify(tienda),
@@ -179,22 +178,25 @@ function registrarFotoProducto() {
 
 
 
+        })  
+        .then(response=>response)
+        .then(data=>{
+            if (data.status == 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Imagen Registrada',
+                    text: 'Tu producto de registro correctamente',
+                    timer: 1000,
+                    footer: '<p class="fw-bolder" >King Shoes CO</p>'
+                  })
+                  setTimeout(cargarInventario,1000)
+               // console.log("succeed!");
+            } else {
+                console.log("failed!");
+            }
+
         })
-            .then(response => Promise.all([response.status, response.json()]))
-            .then(function ([status, myJson]) {
-                if (status == 200) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Imagen Registrada',
-                        text: 'Tu producto de registro correctamente',
-                        timer: 1000,
-                        footer: '<p class="fw-bolder" >King Shoes CO</p>'
-                      })
-                   // console.log("succeed!");
-                } else {
-                    console.log("failed!");
-                }
-            })
+           
             .catch(error => console.log(error.message));
     } else {
         alert("Primero debes registrar el Producto")

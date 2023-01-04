@@ -102,12 +102,16 @@ function verProductosCarro(){
   $("#contenedor").load('usuario/carrito.html')
     let id=sessionStorage.getItem("idCarrito");
     verProductosCarrito(id)
+    
+   
 }
 
 $("#btnCarrito").click(function (event) {
   $("#contenedor").load('usuario/carrito.html')
     let id=sessionStorage.getItem("idCarrito");
     verProductosCarrito(id)
+    
+    
 
 
 })
@@ -130,6 +134,13 @@ function cargarImgCarrito(aux, id) {
 
 
 function verProductosCarrito(id) {
+  let bodyPag=`
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/index.html">inicio</a></li>
+  <li class="breadcrumb-item" aria-current="page">Carrito</li>
+  </ol>`
+  
+  
   if(id!=null){
    
 
@@ -147,7 +158,8 @@ function verProductosCarrito(id) {
     })
 
   const mostrarCarrito = (productos) => {
-    if(productos.length>=1){  
+    if(productos.length>=1){ 
+   document.getElementById("menuPagCarrito").innerHTML=bodyPag; 
     let body = ``
     let body2 = ``
     let totalPagar = 0;
@@ -159,7 +171,7 @@ function verProductosCarrito(id) {
               <div class="card mb-3 border border-dark  " style="max-width: 650px;" id="cardCarrito${productos[i].id}">
                 <div class="row g-0">
                           <div class="col-md-4 p-3" >
-                          <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" height="180px"  id="${productos[i].id}img${productos[i].almacen.producto.id}" alt="" width="150px" alt="" />
+                          <img src="https://static.dafiti.com.co/p/nike-3840-3119402-1-zoom.jpg" height="180px"  id="${productos[i].id}img${productos[i].almacen.producto.id}" onclick="cargarProducto(${productos[i].almacen.producto.id})" alt="" width="150px" alt="" />
                           
                           </div>
                   <div class="col-md-8">
@@ -271,8 +283,8 @@ function verProductosCarrito(id) {
   Swal.fire({
     icon: 'error',
     title: 'Oops...',
-    text: 'Primero Inicia sesion!',
-    timer: 1500,
+    text: '¡ Primero Inicia sesion !',
+    timer: 1800,
     footer: '<p class="fw-bolder" >King Shoes CO</p>'
   })
 

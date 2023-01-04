@@ -121,6 +121,8 @@ function cargarPerfil(){
             footer: '<p class="fw-bolder" >King Shoes CO</p>'
           })
           sessionStorage.setItem("direccion","no")
+          //location.reload();
+          //verificoExisteDireccion()
     })
     
     

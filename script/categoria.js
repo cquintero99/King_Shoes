@@ -192,14 +192,15 @@ function cargarProducto(id) {
     fetch(urlProducto + id)
         .then(response => response.json())
         .then(producto => mostrarProductoId(producto))
-
-
-   
-
-
-
+        .catch(err=>{
+            let categoria=sessionStorage.getItem("categoria")
+            mostrarCategoria(categoria)
+        })
 }
+
 function mostrarProductoId(producto){
+    
+
         let precio = producto.precio
 
 
@@ -297,10 +298,24 @@ function mostrarProductoId(producto){
         document.getElementById("labelMarca").innerHTML = producto.marca.nombre;
 
         document.getElementById('inputCantidad').value = 1;
+        let categoria=producto.categoria.descripcion
+        let nombre=producto.nombre;
+        sessionStorage.setItem("categoria",categoria)
+    let jose=`
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/index.html">inicio</a></li>
+    <li class="breadcrumb-item active"><a href="#" onclick="regresar()"> ${categoria}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">${nombre}</li>
+  </ol>`
+  document.getElementById("menuPagProducto").innerHTML+=jose;
 
     
 }
-
+function regresar(){
+    let categoria=sessionStorage.getItem("categoria")
+    mostrarCategoria(categoria)
+    
+}
 
 function ampliarImagen(id){
 
@@ -321,29 +336,30 @@ function ampliarImagen(id){
 //Cargo los productos por categoria
 function mostrarCategoria(categoria) {
     sessionStorage.setItem("categoria",categoria)
-
-
+    let body=`
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/index.html">inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">${categoria}</li>
+     </ol>`
+      
     $("#contenedor").load('categoria/categoria.html')
 
     fetch(urlCategoria + categoria + '/productos')
         .then(response => response.json())
         .then(data =>{
         verProductosTipo(data)
+        document.getElementById("menuPag").innerHTML+=body;
         }) //mostrarProductos(data))
         .catch(err=>{
-            location.reload()
+           // location.reload()
         })
-     
-        
-
-  
-
+   
 }
 
 function verProductosTipo(data){
    // const mostrarProductos = (data) => {
 
-
+    
 
         let body = ''
         for (let i = 0; i < data.length; i++) {

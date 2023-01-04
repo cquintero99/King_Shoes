@@ -51,9 +51,10 @@ btnEntrar.addEventListener("click",function(){
                   timer: 1000,
                   footer: '<p class="fw-bolder" >King Shoes CO</p>'
                 })
-              
+                
                 setTimeout(recargar, 1000);
                 setTimeout(perfil,1200);
+                
                 
                
               })
@@ -380,3 +381,13 @@ document.getElementById("cargarFormularioP").innerHTML=body;
 }
 
 
+let identificadorTiempoDeEspera;
+temporizadorDeRetraso()
+
+function temporizadorDeRetraso() {
+  identificadorTiempoDeEspera = setTimeout(funcionConRetraso, 720000);
+}
+
+function funcionConRetraso() {
+  cerrarSesion();
+}
