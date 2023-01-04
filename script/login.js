@@ -112,7 +112,7 @@ function cargarDatosCarrito(){
      // verProductosCarrito(carrito[0].id);
     })
     .catch(err=>{
-      alert("inicie sesion")
+      alert("erorr cargar datos carrito"+idUser+" token "+token)
     })
 }
 

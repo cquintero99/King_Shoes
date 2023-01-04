@@ -38,11 +38,16 @@ function registrarUsuarioLogin() {
 
   }).then(res => res.json())
     .then(user => {
-      sessionStorage.setItem("cedulaUser", cedula)
       
-      sessionStorage.setItem("tokenUser", JSON.stringify(user))
+      sessionStorage.setItem("cedulaUser", cedula)
       registrarCarro()
+      
+      //sessionStorage.setItem("tokenUser", JSON.stringify(user))
+     
 
+    })
+    .catch(err=>{
+      alert("error registrar Usuario")
     })
 
    
@@ -58,7 +63,6 @@ function registrarUsuarioLogin() {
 */
 function registrarCarro() {
   let cedula = sessionStorage.getItem("cedulaUser")
-
   fetch('http://localhost:8080/usuarios/' + cedula + '/cedula')
     .then(response => response.json())
     .then(u => rcarrito(u))
@@ -73,7 +77,6 @@ function registrarCarro() {
       total,
       cantidad
     }
-    console.log()
     fetch('http://localhost:8080/carrito/save', {
       method: 'POST',
       body: JSON.stringify(carrito),
@@ -92,8 +95,11 @@ function registrarCarro() {
         })
       
         setTimeout(recargar, 1500);
-        cargarDatosCarrito()
+       // cargarDatosCarrito()
         
+      })
+      .catch(err=>{
+        alert("erorr registrar carrito")
       })
 
   }
