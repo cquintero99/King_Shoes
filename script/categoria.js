@@ -377,7 +377,7 @@ function verProductosTipo(data){
                 `<div class="col " onclick="cargarProducto(${data[i].id})">  
     <div class="abs-center" > 
     
-        <div class="card border-light mb-3 text-bg-light" style="width: 21rem;">
+        <div class="card border-light mb-3 " style="width: 21rem;">
     
             <div class="card-body text-center">
     

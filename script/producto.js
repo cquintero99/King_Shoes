@@ -1,6 +1,5 @@
 function actualizarProducto(id){
     let token=localStorage.getItem("JWT")
-    document.getElementById("modalActualizarP")
     $("#modalActualizarP").load('tienda/registrar.html')
     cargarMarcas();
     cargarCategorias();
@@ -12,7 +11,6 @@ function actualizarProducto(id){
     })
     .then(response=>response.json())
     .then(producto=>{
-        console.log(producto)
         document.getElementById("inputNombreP").value=producto.nombre
         let precio=producto.precio
         document.getElementById("inputPrecioP").value=precio
@@ -26,20 +24,29 @@ function actualizarProducto(id){
         $("#marcaP").val(marca)
 
         let id=producto.id
-        fetch(urlCargarImagen +id + '.jpg')
-         .then(response => response.blob())
-        .then(img => {
-        let imagen = document.getElementById('imgActualizarP')
-        imagen.src = URL.createObjectURL(img);
-        imagen.onload = function (evt) {
-            URL.revokeObjectURL(this.src);
-        }
-    })
-    .catch(err => console.log(err))
+        verImg(id)
+       
 
     })
     .catch(err=>{
+        alert("error ver datos Producto")
         console.log(err)
     })
 
+}
+
+function verImg(id){
+    fetch(urlCargarImagen +id + '.jpg')
+    .then(response => response.blob())
+   .then(img => {
+   let imagen = document.getElementById('imgActualizarP')
+   imagen.src = URL.createObjectURL(img);
+   imagen.onload = function (evt) {
+       URL.revokeObjectURL(this.src);
+   }
+})
+.catch(err => {
+    alert("error cargar img producto")
+    console.log(err)
+})
 }

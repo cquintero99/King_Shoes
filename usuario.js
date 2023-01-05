@@ -89,12 +89,13 @@ function registrarCarro() {
         Swal.fire({
           icon: 'success',
           title: 'Kinshoes',
-          text: '! Usuarios Registrado!',
-          timer: 1500,
-          footer: '<a href="../index.html">Why do I have this issue?</a>'
+          text: '! Usuario Registrado!'+'Ya puede Iniciar Sesion',
+          
+          timer: 2500,
+          footer: '<a href="../index.html">King Shoes </a>'
         })
       
-        setTimeout(recargar, 1500);
+        setTimeout(recargar, 2500);
        // cargarDatosCarrito()
         
       })
@@ -188,19 +189,19 @@ function verProductosCarrito(id) {
                     </div>
                         <div class="row">
                         
-                        <p class="card-title fw-bold fs-6">${productos[i].almacen.producto.nombre} Talla: ${productos[i].almacen.talla.numero}</p>
+                        <p class="card-title fw-bold fs-6">${productos[i].almacen.producto.nombre} - Talla: ${productos[i].almacen.talla.numero}</p>
                         <div class="col">
                         <p class="card-text">Color: ${productos[i].almacen.producto.color}  -  Categoria: ${productos[i].almacen.producto.categoria.descripcion}</p>    
                         </div>
                         <div class="row justify-content-between">
                         
                         <div class="col-4">
-                          <p class="card-text" >Items : <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+                          <p class="card-text" >Item: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
                           <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
                           </svg> ${productos[i].cantidad}</p>
                         </div>
                         <div class="col-8 text-end">
-                          <p class="card-text ">Precio $ ${productos[i].almacen.producto.precio.toLocaleString('en')}</p>
+                          <p class="card-text ">Precio: $ ${productos[i].almacen.producto.precio.toLocaleString('en')}</p>
                           </div>
                         </div>
                         <div class="row justify-content-between">
@@ -208,7 +209,7 @@ function verProductosCarrito(id) {
                   <p class="card-text" > </p>
                 </div>
                 <div class="col-8 text-end">
-                  <p class="card-text" >SubTotal $ ${productos[i].total.toLocaleString('en')}</p>
+                  <p class="card-text" >SubTotal: $ ${productos[i].total.toLocaleString('en')}</p>
                 </div>
               </div>
                   
@@ -239,7 +240,7 @@ function verProductosCarrito(id) {
       `
                   <div class="col-md-10 offset-md-2 text-center   ">
                   <div class="text-bg-success p-2">
-                  <button class="btn btn-success" onclick="cargarPedido()" ><h4>Realizar Pedido</h4></button>
+                  <button class="btn btn-success fw-bolder" onclick="cargarPedido()" ><h4>Realizar Pedido</h4></button>
                     </div>
                   
                   </div>
@@ -248,20 +249,20 @@ function verProductosCarrito(id) {
                   <div class="col-md-10 offset-md-2 text-center border border-dark ">
                   
                   
-                  <div class="text-bg-dark colorBlack p-3">
-                    
-                    </div>
+                  
                 
 
                 <div class="text-center p-3">
-                  <h3>Resumen Del Pedido</h3> 
+                  <h3 class="fw-bolder">RESUMEN DEL PEDIDO</h3> 
                   <form id="fromResgistrarPedido">
 
                     <div class="row mb-3">
-                      <p> N° de Productos : ${nProductos} </p>
-                      <p>Costo de envio $ GRATIS</p>
+                      <p> N° de Productos: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+                      <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+                      </svg>  ${nProductos} </p>
+                      <p>Costo de envio: $ GRATIS</p>
                       <br>
-                      <p>Total a pagar $ ${totalPagar.toLocaleString('en')} </p>
+                      <p class="fw-bolder">Total : $ ${totalPagar.toLocaleString('en')} </p>
                       <p>Metodo de pago: CONTRA ENTREGA</p>
                       
                     </div>
@@ -269,9 +270,7 @@ function verProductosCarrito(id) {
                     
                   </form>
                 </div>
-                <div class="text-bg-dark colorBlack p-3">
-                  
-                </div>
+                
               </div>
                   
                   `

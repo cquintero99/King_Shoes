@@ -257,7 +257,7 @@ function verProductosPedido() {
     </div>
     <div class="col-md-8">
       <div class="card-body">
-      <p class="card-title fw-bold fs-6">${data[i].almacen.producto.nombre}/Talla: ${data[i].almacen.talla.numero}</p>
+      <p class="card-title fw-bold fs-6">${data[i].almacen.producto.nombre}-Talla: ${data[i].almacen.talla.numero}</p>
         <div class=" border-bottom border-dark"> 
          <p class="card-text"><small class="text-muted">Items: ${data[i].cantidad} Precio $ ${data[i].almacen.producto.precio.toLocaleString('en')} </small></p>
          <div class="text-end">
@@ -302,25 +302,18 @@ function cargarDatosPedido() {
 
     body += `
         <br>
-        <div class="card">
-  <h5 class="card-header text-end">
-   <a href="#" type="button" class="btn text-end"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-   <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
- </svg></a>
-  </h5>
-  <div class="card-body">
+        <div class="card border border-dark">
+  
+  <div class="card-body ">
     
-    <h5 class="card-title">Identificacion</h5>
+    <h5 class="card-title fw-bolder">Identificacion</h5>
     <p class="card-text">Correo: ${carrito.usuario.correo}</p>
     <br>
     <p class="card-text">Nombre: ${carrito.usuario.nombre} ${carrito.usuario.apellido}</p>
     
     
   </div>
-  <div class="card-footer text-muted">
-    
-    </div>
+  
 </div>
     
       <br>
@@ -345,15 +338,10 @@ function cargarDatosPedido() {
       sessionStorage.setItem("idDir", direccion[0].id)
       body +=
         `
-        <div class="card ">
-    <div class="card-header text-end">
-    <a href="#" type="button" class="btn text-end"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-   <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
- </svg></a>
-    </div>
+        <div class="card border border-dark">
+    
     <div class="card-body">
-    <h5 class="card-title">Envio</h5>
+    <h5 class="card-title fw-bolder">Envio</h5>
     <p class="card-text">${direccion[0].direccion} ${direccion[0].complemento} ${direccion[0].barrio}  </p>
     <br>
     <p>${direccion[0].municipio.municipio} ${direccion[0].municipio.departamento.departamento}  </p>
@@ -361,25 +349,19 @@ function cargarDatosPedido() {
     <p class="card-text">Telefono / Movil : ${direccion[0].telefono}</p>
     </div>
     
-    <div class="card-footer text-muted">
     
-    </div>
     </div>
     
 
     
         <br>
-    <div class="card ">
-    <div class="card-header">
+    <div class="card border border-dark">
     
-    </div>
     <div class="card-body">
-    <h5 class="card-title">Pago</h5>
+    <h5 class="card-title fw-bolder">Pago</h5>
     <p class="card-text">Medio de pago: CONTRA ENTREGA</p>
     </div>
-    <div class="card-footer text-muted">
     
-    </div>
     </div>
         `
 

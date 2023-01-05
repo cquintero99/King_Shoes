@@ -42,6 +42,7 @@ btnEntrar.addEventListener("click",function(){
               .then(response=>response.json())
               .then(user=>{
                   sessionStorage.setItem("tokenUser",JSON.stringify(user))
+                  
                  cargarDatosCarrito()
              
                  Swal.fire({
@@ -240,7 +241,7 @@ function cargarMenuT(idUser){
            
            
                 $("#menu").load('tienda/menuTienda.html')
-                $("#contenedor").load('tienda/producto.html') 
+                $("#contenedor").load('tienda/index.html') 
                
                 setTimeout(verFormularioProducto,50)
 
@@ -385,7 +386,7 @@ let identificadorTiempoDeEspera;
 temporizadorDeRetraso()
 
 function temporizadorDeRetraso() {
-  identificadorTiempoDeEspera = setTimeout(funcionConRetraso, 720000);
+  identificadorTiempoDeEspera = setTimeout(funcionConRetraso, 7200000);
 }
 
 function funcionConRetraso() {

@@ -388,7 +388,7 @@ function verTallasProducto(id) {
 
 
 
-
+//Lista de productos admin
 function listarProductos() {
     $("#contenedor").load('cuenta/productos.html')
     fetch('http://localhost:8080/productos')
@@ -543,6 +543,10 @@ $("#listaTiendas").click(function (event) {
          <li><a class="dropdown-item" href="#">Actualizar</a></li>
          <li>
          <a class="dropdown-item" href="#" >Cambiar Estado</a>
+         
+         </li>
+         <li>
+         <a class="dropdown-item" href="#" id="verPedidosTienda" onclick="pedidosTienda(${data[i].id})" data-bs-toggle="modal" data-bs-target="#staticBackdropPedidos">Ver pedidos</a>
          
          </li>
           <li><a class="dropdown-item" href="#">Eliminar </a></li>

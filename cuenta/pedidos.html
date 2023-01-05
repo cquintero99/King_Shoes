@@ -12,7 +12,7 @@
 
     <div class="container-sm">
         <br>
-        <div class="text-dark border-bottom border-dark " >
+        <div class="text-dark border-bottom border-dark  " >
           <p class="fw-bolder" ><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-box2" viewBox="0 0 16 16">
             <path d="M2.95.4a1 1 0 0 1 .8-.4h8.5a1 1 0 0 1 .8.4l2.85 3.8a.5.5 0 0 1 .1.3V15a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4.5a.5.5 0 0 1 .1-.3L2.95.4ZM7.5 1H3.75L1.5 4h6V1Zm1 0v3h6l-2.25-3H8.5ZM15 5H1v10h14V5Z"/>
           </svg> LISTA DE PEDIDOS </p>
@@ -20,6 +20,44 @@
         <br>
 
     </div>
-    <div class="container-sm" id="listaPedidosAdmin"></div>
+    <div class="container-fluid" >
+      <div class="row" id="contenedorPedidos"></div>
+      
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Productos </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class=" modal-body " >
+            <div class="overflow-scroll ">
+           <table class="table table-responsive table-striped " id="lista">
+            <thead class="table-dark">
+              <tr> 
+              <th>Imagen</th>
+              <th>Nombre</th>
+              <th>Talla</th>
+              <th>Precio</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="detallePedido">
+
+            </tbody>
+           </table>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

@@ -1,6 +1,5 @@
-function verPedidosTienda(){
+function verPedidosTienda(idTienda){
     
-    let idTienda=sessionStorage.getItem("idTienda")
     fetch('http://localhost:8080/tiendas/'+idTienda+'/lista/pedidos')
     .then(response=>response.json())
     .then(data=>{
@@ -9,14 +8,14 @@ function verPedidosTienda(){
         let idPedido=data[i].id
         contenedor+=
         `
-        <div class="accordion accordion-flush" id="accordionFlushExample${idPedido}">
+        <div class="accordion accordion-flush" id="${idTienda}accordionFlushExample${idPedido}">
 <div class="accordion-item">
-<h2 class="accordion-header" id="flush-headingOne"${idPedido}>
-<button class="accordion-button collapsed" onclick="mostrarProductosPedido(${idPedido})" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne${idPedido}" aria-expanded="false" aria-controls="flush-collapseOne${idPedido}">
+<h2 class="accordion-header" id="${idTienda}flush-headingOne"${idPedido}>
+<button class="accordion-button collapsed" onclick="mostrarProductosPedido(${idPedido},${idTienda})" type="button" data-bs-toggle="collapse" data-bs-target="#${idTienda}flush-collapseOne${idPedido}" aria-expanded="false" aria-controls="${idTienda}flush-collapseOne${idPedido}">
 PEDIDO # 00-${data[i].id}  FECHA: ${data[i].fecha}  
 </button>
 </h2>
-<div id="flush-collapseOne${idPedido}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne${idPedido}" data-bs-parent="#accordionFlushExample${idPedido}">
+<div id="${idTienda}flush-collapseOne${idPedido}" class="accordion-collapse collapse" aria-labelledby="${idTienda}flush-headingOne${idPedido}" data-bs-parent="#${idTienda}accordionFlushExample${idPedido}">
 <div class="accordion-body">
 <div class="overflow-scroll">
 
@@ -35,7 +34,7 @@ PEDIDO # 00-${data[i].id}  FECHA: ${data[i].fecha}
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="tablaPedidosTienda${data[i].id}">
+                <tbody id="${idTienda}tablaPedidosTienda${data[i].id}">
     
                 </tbody>
             </table>
@@ -54,8 +53,7 @@ PEDIDO # 00-${data[i].id}  FECHA: ${data[i].fecha}
         console.log(err)
     })
 }
-function mostrarProductosPedido(idPedido){
-    let idTienda=sessionStorage.getItem("idTienda")
+function mostrarProductosPedido(idPedido,idTienda){
     fetch('http://localhost:8080/tiendas/'+idTienda+'/pedido/'+idPedido+'/productos')
     .then(response=>response.json())
     .then(data=>{
@@ -85,7 +83,7 @@ function mostrarProductosPedido(idPedido){
 
                 
                
-                    document.getElementById("tablaPedidosTienda"+idPedido).innerHTML=body
+                    document.getElementById(idTienda+"tablaPedidosTienda"+idPedido).innerHTML=body
                     
 
             })
@@ -108,77 +106,6 @@ function vistaPedidos(){
     let idTienda=sessionStorage.getItem("idTienda")
     $("#contenedor").load('tienda/pedidos.html')
    // cargarPedidos(idTienda,1)
-   verPedidosTienda()
+   verPedidosTienda(idTienda)
 }
 
-function cargarPedidos(idTienda,indicador){
-   
-    if(idTienda>=1){
-    fetch('http://localhost:8080/tiendas/'+idTienda+'/pedidos')
-    .then(response=>response.json())
-    .then(data=>{
-        let body=``
-        for(let i=0;i<data.length;i++){
-            let precio=data[i].precio
-            let cantidad=data[i].cantidad
-            let total=precio*cantidad
-            let pedido_id=data[i].pedido_id
-            let idTalla=data[i].almacen_id
-            fetch('http://localhost:8080/almacen/'+idTalla)
-            .then(res=>res.json())
-            .then(talla=>{
-                body=
-                `<tr>
-                
-                <td>00-${pedido_id}-${data[i].tienda_id}</td>
-                <td>${talla.producto.nombre}</td>
-                <td>${talla.talla.numero}</td>
-                <td>${precio}</td>
-                <td>${cantidad}</td>
-                <td>${total}</td>
-                <td>${data[i].estado}</td>
-                <td> <button class="btn btn-warning">Actualizar Estado</button></td> 
-                </tr>
-                `
-
-                
-               
-                if(indicador==1){
-                    document.getElementById("tablaPedidosTienda").innerHTML+=body
-                  
-                }else{
-                    document.getElementById("tablaPedidosTienda"+idTienda).innerHTML+=body
-                    }
-
-            })
-            .catch(err=>{
-                console.log(err)
-            })
-            
-           
-           
-        }
-        //verPedidosTienda()
-        
-       
-        
-        
-
-
-    })
-    .catch(err=>{
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Error al cargar pedidos!',
-            timer: 1500,
-            footer: '<p class="fw-bolder" >King Shoes CO</p>'
-          })
-    })
-
-
-
-                }else{
-                    alert("no sirve")
-                }
-}

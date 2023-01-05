@@ -8,46 +8,48 @@ function verPedidos(){
     })
     .then(response=>response.json())
     .then(data=>{
-        if(data.length>=1){
-            let body=``
-        for (let i = 0; i < data.length; i++){
-          body+=
-          `
-          <div class="card text-center border-dark">
-        <div class="card-header text-bg-light ">
-         PEDIDO #${data[i].id}-${data[i].usuario_id}
-        </div>
-         <div class="card-body">
-          <h5 class="card-title"></h5>
-         <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="detallePedido(${data[i].id})">Ver detalles</a>
-         <br>
-          <p class="card-text">Metodo de pago: ${data[i].metodoPago}</p>
-          <br>
-          <p class="card-text">Numero de productos: ${data[i].numero_productos}</p>
-          <br>
-          <p class="card-text">Total: ${data[i].total.toLocaleString('en')} </p>
-          
-         </div>
-        <div class="card-footer text-muted">
-          ${data[i].fecha}
-         </div>
-</div>
-<br>
-          `
-
-        }
-        document.getElementById('contenedorPedidos').innerHTML=body
-    }else{
-        body=`<h3>Vacio....</h3>`
-        document.getElementById('contenedorPedidos').innerHTML=body
-       // alert("no tienes pedidos ")
-    }
-       
+        
+       pedido(data)
         
     })
     .catch(err=>{
         alert("Error pedidos")
     })
+}
+function pedido(data){
+    if(data.length>=1){
+        let body=``
+    for (let i = 0; i < data.length; i++){
+      body+=
+      `<div class="col ">
+     <div class="card border-light mb-3 " style="width: 21rem;">
+    
+     <div class="card-body text-center">
+      <h5 class="card-title fw-bolder">PEDIDO #${data[i].id}-${data[i].usuario_id}</h5>
+     <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="detallePedido(${data[i].id})">Ver detalles</a>
+     <br>
+      <p class="card-text">Metodo de pago: ${data[i].metodoPago}</p>
+      <br>
+      <p class="card-text">Numero de productos: ${data[i].numero_productos}</p>
+      <br>
+      <p class="card-text">Total: ${data[i].total.toLocaleString('en')} </p>
+      <br>
+      <p class="card-text fw-bolder">${data[i].fecha} </p>
+     </div>
+    
+</div>
+</div>
+
+<br>
+      `
+
+    }
+    document.getElementById('contenedorPedidos').innerHTML=body
+}else{
+    body=`<h3>Vacio....</h3>`
+    document.getElementById('contenedorPedidos').innerHTML=body
+   // alert("no tienes pedidos ")
+}
 }
 
 function detallePedido(id){
